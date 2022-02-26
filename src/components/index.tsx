@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Home() {
-  return <div>asdas</div>;
-}
+const index = () => {
+  return <div></div>;
+};
 
-export default Home;
+export default index;

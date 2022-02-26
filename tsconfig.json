@@ -23,7 +23,6 @@
       "@fonts/*": ["fonts/*"],
       "@hooks/*": ["hooks/*"],
       "@layouts/*": ["layouts/*"],
-      "@types/*": ["types/*"],
       "@recoil/*": ["recoil`/*"],
       "@utils/*": ["utils/*"]
     }
