@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -16,16 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "baseUrl": "src",
-    "paths": {
-      "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
-      "@fonts/*": ["fonts/*"],
-      "@hooks/*": ["hooks/*"],
-      "@layouts/*": ["layouts/*"],
-      "@recoil/*": ["recoil`/*"],
-      "@utils/*": ["utils/*"]
-    }
   },
-  "include": ["src"]
+  "include": [ "**/*.ts", "**/*.tsx"]
 }

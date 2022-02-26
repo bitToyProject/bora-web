@@ -1,13 +1,18 @@
-import React from 'react';
-import { hooksA } from '@hooks/index';
-import Home from './components';
+import React, { Suspense } from 'react';
 
-function App() {
+import { Route, Routes } from 'react-router';
+import SignupContainer from 'components/signup/SignupContainer';
+
+const App = () => {
   return (
-    <div className="App">
-      <Home></Home>
-    </div>
+    <>
+      <Suspense fallback={<div> LOADING......</div>}>
+        <Routes>
+          <Route path={'user/signup'} element={<SignupContainer />} />
+        </Routes>
+      </Suspense>
+    </>
   );
-}
+};
 
 export default App;
