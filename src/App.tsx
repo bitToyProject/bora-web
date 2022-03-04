@@ -1,18 +1,26 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router';
 import SignupContainer from 'components/signup/SignupContainer';
-import { Global } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
 import { GlobalStyles } from 'styles/GlobalStyles';
+import { MypageContainer } from 'components';
+import { Wrapper } from 'layouts';
+import theme from 'styles/theme';
 
 const App = () => {
   return (
     <>
-      <Global styles={GlobalStyles} />
-      <Suspense fallback={<div> LOADING......</div>}>
-        <Routes>
-          <Route path={'/user/signup'} element={<SignupContainer />} />
-        </Routes>
-      </Suspense>
+      <ThemeProvider theme={theme}>
+        <Global styles={GlobalStyles} />
+        <Suspense fallback={<div> LOADING......</div>}>
+          <Wrapper>
+            <Routes>
+              <Route path={'/user/signup'} element={<SignupContainer />} />
+              <Route path={'/mypage'} element={<MypageContainer />} />
+            </Routes>
+          </Wrapper>
+        </Suspense>
+      </ThemeProvider>
     </>
   );
 };
