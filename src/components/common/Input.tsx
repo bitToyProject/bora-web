@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
-import React, { FunctionComponent } from 'react';
+import React, { DetailedHTMLProps, FunctionComponent, InputHTMLAttributes } from 'react';
 import theme from 'styles/theme';
 
 export const Input: FunctionComponent<
-  React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-> = (
-  props: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-) => {
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+> = (props: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) => {
   return (
     <InputWrapper>
       <input {...props} />

@@ -1,19 +1,24 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosPromise } from 'axios';
-import { IGetUserResponse } from '../../types/user.types';
+import { storageToken } from 'utils/storage';
+import { IGetUserResponse, IUser } from '../../types/user.types';
 
 export namespace userAPI {
-  export const getUser = (
-    params?: {
-      query?: string;
-    },
-    options?: AxiosRequestConfig,
-  ): AxiosPromise<IGetUserResponse> => {
-    return axios.get<IGetUserResponse>(`/user/${params?.query}`, options);
+  export const get = {
+    user: () : AxiosPromise<IUser> => {
+      return axios.get('/user/me', {
+        headers: {
+            Authorization: `Bearer ${storageToken.get()}`
+        }
+    })
+    }
+  }
+  export const put ={
+    modifyUser: (parameter: IUser) : AxiosPromise<boolean> => {
+      return axios.put('/user/modifyUser', parameter, {
+        headers: {
+          Authorization: `Bearer ${storageToken.get()}`
+      }
+      })
+    }
   };
-  export const getUsers = () => {};
-  export const post = {
-    login: () => {},
-  };
-  export const remove = () => {};
-  export const put = () => {};
 }

@@ -4,17 +4,25 @@ import React from 'react';
 interface Props {
   lastName: React.ReactElement;
   firstName: React.ReactElement;
-  phoneNum: React.ReactElement;
+  nickname: React.ReactElement;
+  phoneNumber: React.ReactElement;
   gender: React.ReactElement;
   SubmitButton: React.ReactElement;
 }
 
-const MypageTemplate = ({ lastName, firstName, phoneNum, gender, SubmitButton }: Props) => {
+const MypageTemplate = ({
+  lastName,
+  firstName,
+  nickname,
+  phoneNumber,
+  gender,
+  SubmitButton,
+}: Props) => {
   return (
     <MypageTemplateBlock>
       <Title>마이페이지</Title>
       <InputWrapper>
-        <label>이름</label>
+        <label>성</label>
         {firstName}
       </InputWrapper>
       <InputWrapper>
@@ -22,12 +30,16 @@ const MypageTemplate = ({ lastName, firstName, phoneNum, gender, SubmitButton }:
         {lastName}
       </InputWrapper>
       <InputWrapper>
+        <label>닉네임</label>
+        {nickname}
+      </InputWrapper>
+      <InputWrapper>
         <label>성별</label>
         {gender}
       </InputWrapper>
       <InputWrapper>
         <label>전화번호</label>
-        {phoneNum}
+        {phoneNumber}
       </InputWrapper>
       <ButtonWrapper>{SubmitButton}</ButtonWrapper>
     </MypageTemplateBlock>

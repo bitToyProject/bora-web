@@ -8,6 +8,7 @@ import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
 import { authState } from 'store/auth/auth';
 import LoginContainer from 'components/login/LoginContainer';
+import { MypageContainer } from 'components';
 
 const App = () => {
   const [auth, setAiuth] = useRecoilState(authState);
