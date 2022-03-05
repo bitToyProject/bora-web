@@ -1,15 +1,15 @@
+import { IAuthState } from 'store/auth/auth';
+
 export interface ILoginRequest {
   username: string;
   password: string;
 }
 
-export interface ILoginResponse {
-  data: {
-    accessToken: string;
-    refreshToken: string;
-    accessTokenExpiresIn: number;
-  };
-  status: number;
+export interface ILoginResponse extends IAuthState {
+  accessToken: string;
+  accessTokenExpiresIn: number;
+  grantType: string;
+  refreshToken: string;
 }
 
 export interface IReissueRequest {

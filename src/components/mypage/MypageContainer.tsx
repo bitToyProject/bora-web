@@ -1,4 +1,4 @@
-import { userAPI } from 'apis/auth';
+import { userAPI } from 'apis/user';
 import { MypageTemplate } from 'components';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';

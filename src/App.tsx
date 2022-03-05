@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { Route, Routes } from 'react-router';
+import React, { Suspense, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router';
 import SignupContainer from 'components/signup/SignupContainer';
 import { Global, ThemeProvider } from '@emotion/react';
 import { GlobalStyles } from 'styles/GlobalStyles';
@@ -8,24 +8,51 @@ import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
 import { authState } from 'store/auth/auth';
 import LoginContainer from 'components/login/LoginContainer';
+import { MypageContainer } from 'components';
+import Cookies from 'universal-cookie/es6';
+import { authAPI } from 'apis/auth';
+import { userAPI } from 'apis/user';
 
 const App = () => {
-  const [auth, setAiuth] = useRecoilState(authState);
+  const [auth, setAuth] = useRecoilState(authState);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const cookies = new Cookies();
+    if (auth) {
+      console.log('로그인 상태');
+      return;
+    }
+
+    if (!auth && cookies.get('accessToken')) {
+      userAPI.get.me().then((res) => {
+        setAuth(res.data);
+      });
+      return;
+    }
+
+    console.log('재 로그인 필요');
+  }, []);
   console.log(auth);
+
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Global styles={GlobalStyles} />
-        <Suspense fallback={<div> LOADING......</div>}>
-          <Wrapper>
-            <Routes>
-              <Route path={'/user/signup'} element={<SignupContainer />} />
-              <Route path={'/auth/login'} element={<LoginContainer />} />
-            </Routes>
-          </Wrapper>
-        </Suspense>
-      </ThemeProvider>
+      {auth ? (
+        <ThemeProvider theme={theme}>
+          <Global styles={GlobalStyles} />
+          <Suspense fallback={<div> LOADING......</div>}>
+            <Wrapper>
+              <Routes>
+                <Route path={'/user/signup'} element={<SignupContainer />} />
+                <Route path={'/user/mypage'} element={<MypageContainer />} />
+                <Route path={'/auth/login'} element={<LoginContainer />} />
+              </Routes>
+            </Wrapper>
+          </Suspense>
+        </ThemeProvider>
+      ) : (
+        <div> LOADING......</div>
+      )}
     </>
   );
 };

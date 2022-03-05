@@ -1,12 +1,17 @@
 import { atom, selector } from 'recoil';
 import { ILoginResponse } from 'types/auth.types';
 
-export const authState = atom<ILoginResponse>({
+export interface IAuthState {
+  username: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  gender: number;
+}
+
+export const authState = atom<IAuthState | null>({
   key: 'auth',
-  default: {
-    data: { accessToken: '', accessTokenExpiresIn: 0, refreshToken: '' },
-    status: 0,
-  },
+  default: null,
 });
 
 // export const authSelector = selector({
