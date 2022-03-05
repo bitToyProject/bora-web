@@ -1,9 +1,10 @@
 import { useInput } from 'hooks/useInput';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 interface PropTypes {
   input: {
     type: string;
+    name: string;
     disabled: boolean;
     placeholder: string;
     // onFocus: () => void;
@@ -22,6 +23,7 @@ const TextInput = (input: PropTypes['input']) => {
   return (
     <>
       <input
+        name={input.name}
         type={input.type}
         disabled={input.disabled}
         placeholder={input.placeholder}
