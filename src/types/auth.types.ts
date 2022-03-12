@@ -1,11 +1,11 @@
-import { IAuthState } from 'store/auth/auth';
+import { IUserState } from 'store/user/user';
 
 export interface ILoginRequest {
   username: string;
   password: string;
 }
 
-export interface ILoginResponse extends IAuthState {
+export interface ILoginResponse extends IUserState {
   accessToken: string;
   accessTokenExpiresIn: number;
   grantType: string;

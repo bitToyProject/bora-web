@@ -1,7 +1,16 @@
-import { atom } from "recoil";
-import { gender, IUser } from "types/user.types";
+import { atom } from 'recoil';
+import { gender } from 'types/user.types';
 
-export const userState = atom<IUser>({
-  key: "user",
-  default: { username: '', firstName: "", lastName: "", nickname: '', phoneNumber: '', gender: gender.남},
+export interface IUserState {
+  username: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  nickname: string;
+  gender: number;
+}
+
+export const userState = atom<IUserState | null>({
+  key: 'user',
+  default: null,
 });

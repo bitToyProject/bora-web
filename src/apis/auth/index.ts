@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosPromise } from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import {
   ICheckUsernameResponse,
   ILoginRequest,
@@ -8,14 +8,29 @@ import {
   ISignupRequest,
   ISignupResponse,
 } from 'types/auth.types';
-import { IGetUserResponse } from '../../types/user.types';
+import Cookies from 'universal-cookie/es6';
+
+interface IGetRequest<Q, P> {
+  query?: Q;
+  parmas?: P;
+}
+
+interface IPostRequest {}
 
 export namespace authAPI {
+  const cookies = new Cookies();
   export const get = {
-    check: (params: { username: string }): AxiosPromise<ICheckUsernameResponse> => {
-      return axios.get(`/auth/check/${params.username}`);
+    check: (
+      request: IGetRequest<{ username: string }, {}>,
+    ): AxiosPromise<ICheckUsernameResponse> => {
+      return axios.get(`/auth/check/${request.query?.username}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.get('accessToken')}`,
+        },
+      });
     },
   };
+
   export const post = {
     login: (body: ILoginRequest): AxiosPromise<ILoginResponse> => {
       return axios.post(`/auth/login`, body);

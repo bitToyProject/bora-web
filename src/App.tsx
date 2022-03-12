@@ -6,51 +6,46 @@ import { GlobalStyles } from 'styles/GlobalStyles';
 import { Wrapper } from 'layouts';
 import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
-import { authState } from 'store/auth/auth';
 import LoginContainer from 'components/login/LoginContainer';
 import { MypageContainer } from 'components';
 import { authAPI } from 'apis/auth';
 import { userAPI } from 'apis/user';
+import { userState } from 'store/user/user';
+import Cookies from 'universal-cookie/es6';
 
 const App = () => {
-  const [auth, setAuth] = useRecoilState(authState);
+  const [auth, setAuth] = useRecoilState(userState);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (auth) {
-      console.log('로그인 상태');
-      return;
-    }
+  console.log(auth);
 
-    if (!auth) {
+  useEffect(() => {
+    const cookies = new Cookies();
+    if (auth) return;
+
+    if (cookies.get('accessToken')) {
       userAPI.get.user().then((res) => {
         setAuth(res.data);
       });
-      return;
+    } else {
+      navigate('/auth/login');
     }
-
-    console.log('재 로그인 필요');
   }, []);
-  console.log(auth);
 
   return (
     <>
-      {auth ? (
-        <ThemeProvider theme={theme}>
-          <Global styles={GlobalStyles} />
-          <Suspense fallback={<div> LOADING......</div>}>
-            <Wrapper>
-              <Routes>
-                <Route path={'/user/signup'} element={<SignupContainer />} />
-                <Route path={'/user/mypage'} element={<MypageContainer />} />
-                <Route path={'/auth/login'} element={<LoginContainer />} />
-              </Routes>
-            </Wrapper>
-          </Suspense>
-        </ThemeProvider>
-      ) : (
-        <div> LOADING......</div>
-      )}
+      <ThemeProvider theme={theme}>
+        <Global styles={GlobalStyles} />
+        <Suspense fallback={<div> LOADING......</div>}>
+          <Wrapper>
+            <Routes>
+              <Route path={'/user/signup'} element={<SignupContainer />} />
+              <Route path={'/user/mypage'} element={<MypageContainer />} />
+              <Route path={'/auth/login'} element={<LoginContainer />} />
+            </Routes>
+          </Wrapper>
+        </Suspense>
+      </ThemeProvider>
     </>
   );
 };
