@@ -1,15 +1,17 @@
+import { Theme } from '@emotion/react';
+
 export interface ITheme {
   colors: {
-    main : string;
+    main: string;
     backgroud: string;
     border: string;
-  }
+  };
 }
 
-export default {
+export const theme: Theme = {
   colors: {
-    main : 'hsl(244,57%,50%)',
+    main: 'hsl(244,57%,50%)',
     background: '#e7ebf3',
     border: '',
-  }
-}
+  },
+};
