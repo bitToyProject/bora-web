@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-import { gender } from 'types/user.types';
 
 export interface IUserState {
   username: string;

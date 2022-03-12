@@ -11,8 +11,6 @@ import { theme } from 'styles/theme';
 import TodoContainer from 'components/todo/TodoContainer';
 
 const App = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -25,7 +23,6 @@ const App = () => {
               <Route path="/signup" element={<PrivateRoute element={<SignupContainer />} />} />
               <Route path="/todo" element={<PrivateRoute element={<TodoContainer />} />} />
               <Route path="/login" element={<LoginContainer />} />
-              {/* <Route path={'/user/mypage'} element={<MypageContainer />} /> */}
             </Routes>
           </Wrapper>
         </Suspense>
