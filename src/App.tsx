@@ -23,9 +23,11 @@ const App = () => {
         <Suspense fallback={<div> LOADING......</div>}>
           <Wrapper>
             <Routes>
-              <Route path="/" element={<PrivateRoute path="/" />} />
-              <Route path={'/user/signup'} element={<SignupContainer />} />
-              <Route path={'/user/mypage'} element={<MypageContainer />} />
+              <Route path="/" element={<PrivateRoute element={<></>} />} />
+              <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
+              <Route path="/signup" element={<PrivateRoute element={<SignupContainer />} />} />
+              <Route path="/login" element={<LoginContainer />} />
+              {/* <Route path={'/user/mypage'} element={<MypageContainer />} /> */}
             </Routes>
           </Wrapper>
         </Suspense>

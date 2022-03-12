@@ -1,4 +1,5 @@
 import { authAPI } from 'apis/auth';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/token';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate, useRoutes } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from 'store/user/user';
 import { ILoginRequest } from 'types/auth.types';
 import Cookies from 'universal-cookie/es6';
+import { storage } from 'utils/storage';
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -14,13 +16,8 @@ export const useLogin = () => {
   const [_, setAuth] = useRecoilState(userState);
   const user = useMutation((loginValue: ILoginRequest) => authAPI.post.login(loginValue), {
     onSuccess: (data, variables, contxt) => {
-      cookies.set('accessToken', data.data.accessToken, {
-        expires: new Date(data.data.accessTokenExpiresIn),
-        path: '/',
-      });
-      cookies.set('refreshToken', data.data.refreshToken, {
-        path: '/',
-      });
+      storage.set(ACCESS_TOKEN, data.data.accessToken);
+      storage.set(REFRESH_TOKEN, data.data.refreshToken);
       setAuth(data.data);
       navigate('/');
     },
@@ -45,7 +42,7 @@ export const useLogin = () => {
   };
 
   useEffect(() => {
-    if (cookies.get('accessToken')) {
+    if (storage.get(ACCESS_TOKEN)) {
       navigate(-1);
     }
   }, []);

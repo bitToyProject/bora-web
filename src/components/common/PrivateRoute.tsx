@@ -1,25 +1,24 @@
 import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { userAPI } from 'apis/user';
 import LoginContainer from 'components/login/LoginContainer';
-import React, { useCallback } from 'react';
+import { ACCESS_TOKEN } from 'constants/token';
+import React, { Children, useCallback } from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userState } from 'store/user/user';
-import Cookies from 'universal-cookie';
+import { storage } from 'utils/storage';
 
 interface IPrivateRouteProps {
-  path: string;
+  element: any;
 }
 
-function PrivateRoute({ path }: IPrivateRouteProps) {
+function PrivateRoute({ element }: IPrivateRouteProps) {
   const [user, setUser] = useRecoilState(userState);
 
   const isLoggedIn = useCallback((): boolean => {
-    const cookies = new Cookies();
-
     if (user) return true;
 
-    if (cookies.get('accessToken')) {
+    if (storage.get(ACCESS_TOKEN)) {
       userAPI.get.user().then((res) => {
         setUser(res.data);
       });
@@ -31,10 +30,10 @@ function PrivateRoute({ path }: IPrivateRouteProps) {
   }, []);
 
   if (isLoggedIn()) {
-    return <Navigate replace to={path} />;
+    return element;
   }
 
-  return <Navigate replace to="/auth/login" />;
+  return <Navigate replace to="/login" />;
 }
 
 export default PrivateRoute;
