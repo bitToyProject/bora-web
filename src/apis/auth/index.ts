@@ -1,4 +1,5 @@
-import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
+import axios, { AxiosPromise } from 'axios';
+import { ACCESS_TOKEN } from 'constants/token';
 import {
   ICheckUsernameResponse,
   ILoginRequest,
@@ -9,6 +10,7 @@ import {
   ISignupResponse,
 } from 'types/auth.types';
 import Cookies from 'universal-cookie/es6';
+import { storage } from 'utils/storage';
 
 interface IGetRequest<Q, P> {
   query?: Q;
@@ -18,14 +20,13 @@ interface IGetRequest<Q, P> {
 interface IPostRequest {}
 
 export namespace authAPI {
-  const cookies = new Cookies();
   export const get = {
     check: (
       request: IGetRequest<{ username: string }, {}>,
     ): AxiosPromise<ICheckUsernameResponse> => {
       return axios.get(`/auth/check/${request.query?.username}`, {
         headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
+          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
         },
       });
     },

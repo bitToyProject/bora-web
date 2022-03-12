@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosPromise } from 'axios';
+import { ACCESS_TOKEN } from 'constants/token';
 import { IUserState } from 'store/user/user';
-import { storageToken } from 'utils/storage';
+import { storage } from 'utils/storage';
 import { IGetUserResponse } from '../../types/user.types';
 
 export namespace userAPI {
@@ -8,7 +9,7 @@ export namespace userAPI {
     user: (): AxiosPromise<IUserState> => {
       return axios.get('/user/me', {
         headers: {
-          Authorization: `Bearer ${storageToken.get()}`,
+          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
         },
       });
     },
@@ -17,7 +18,7 @@ export namespace userAPI {
     modifyUser: (parameter: IUserState): AxiosPromise<boolean> => {
       return axios.put('/user/modifyUser', parameter, {
         headers: {
-          Authorization: `Bearer ${storageToken.get()}`,
+          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
         },
       });
     },
