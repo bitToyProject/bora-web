@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React, { DetailedHTMLProps, FunctionComponent, InputHTMLAttributes } from 'react';
-import theme from 'styles/theme';
 
 interface Props
   extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
@@ -22,7 +21,7 @@ const InputWrapper = styled.div`
   input {
     height: 48px;
     padding: 10px;
-    border: 1px solid ${theme.colors.border};
+    border: 1px solid ${({ theme }) => theme.colors.border};
     border-radius: 4px;
 
     @media (min-width: 800px) {

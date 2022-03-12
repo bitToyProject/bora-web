@@ -8,6 +8,8 @@ export interface IUserState {
   phoneNumber: string;
   nickname: string;
   gender: number;
+  password?: string;
+  checkPassword?: string;
 }
 
 export const userState = atom<IUserState | null>({

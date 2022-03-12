@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import theme from 'styles/theme';
 
 interface Props {
   text: string;
@@ -27,7 +26,7 @@ const ButtonWrapper = styled.div`
     border: none;
     color: #fff;
     border-radius: 8px;
-    background-color: ${theme.colors.main};
+    background-color: ${({ theme }) => theme.colors.main};
     cursor: pointer;
   }
 `;

@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 interface Props {
-  lastName: React.ReactElement;
-  firstName: React.ReactElement;
-  nickname: React.ReactElement;
-  phoneNumber: React.ReactElement;
-  gender: React.ReactElement;
-  SubmitButton: React.ReactElement;
+  lastName: ReactElement;
+  firstName: ReactElement;
+  nickname: ReactElement;
+  phoneNumber: ReactElement;
+  gender: ReactElement;
+  SubmitButton: ReactElement;
 }
 
 const MypageTemplate = ({
@@ -28,6 +28,10 @@ const MypageTemplate = ({
       <InputWrapper>
         <Label>이름</Label>
         {lastName}
+      </InputWrapper>
+      <InputWrapper>
+        <Label>닉네임</Label>
+        {nickname}
       </InputWrapper>
       <InputWrapper>
         <Label>닉네임</Label>

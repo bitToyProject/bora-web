@@ -27,7 +27,7 @@ function PrivateRoute({ element }: IPrivateRouteProps) {
     }
 
     return false;
-  }, []);
+  }, [user]);
 
   if (isLoggedIn()) {
     return element;
