@@ -22,23 +22,23 @@ const MypageTemplate = ({
     <MypageTemplateBlock>
       <Title>마이페이지</Title>
       <InputWrapper>
-        <label>성</label>
+        <Label>성</Label>
         {firstName}
       </InputWrapper>
       <InputWrapper>
-        <label>이름</label>
+        <Label>이름</Label>
         {lastName}
       </InputWrapper>
       <InputWrapper>
-        <label>닉네임</label>
+        <Label>닉네임</Label>
         {nickname}
       </InputWrapper>
       <InputWrapper>
-        <label>성별</label>
+        <Label>성별</Label>
         {gender}
       </InputWrapper>
       <InputWrapper>
-        <label>전화번호</label>
+        <Label>전화번호</Label>
         {phoneNumber}
       </InputWrapper>
       <ButtonWrapper>{SubmitButton}</ButtonWrapper>
@@ -58,4 +58,10 @@ const Title = styled.p`
 const InputWrapper = styled.div`
   margin: 20px 0;
 `;
+
+const Label = styled.label`
+  margin: 5px 0;
+  display: inline-block;
+`;
+
 const ButtonWrapper = styled.div``;

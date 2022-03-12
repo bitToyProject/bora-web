@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import React, { DetailedHTMLProps, FunctionComponent, InputHTMLAttributes } from 'react';
 import theme from 'styles/theme';
 
-export const Input: FunctionComponent<
-  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-> = (props: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) => {
+interface Props
+  extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
+export const Input = (props: Props) => {
   return (
     <InputWrapper>
       <input {...props} />

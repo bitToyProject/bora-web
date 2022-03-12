@@ -1,19 +1,26 @@
 import styled from '@emotion/styled';
-import React, { ChangeEvent, SelectHTMLAttributes } from 'react';
+import React, { ChangeEvent } from 'react';
 
 interface Props {
   options: { name: string; value: number | string }[];
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  value: string;
+  onChange?: (value: string) => void;
 }
 
-const Select = ({ options, onChange }: Props) => {
-  console.log(options);
+const Select = ({ options, value, onChange }: Props) => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onChange && onChange(e.target.value);
+  };
 
   return (
     <SelectWrapper>
-      <select onChange={onChange}>
+      <select onChange={handleChange} value={value}>
         {options.map((option) => {
-          <option value={option.value}>{option.name}dddd</option>;
+          return (
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
+          );
         })}
       </select>
     </SelectWrapper>
