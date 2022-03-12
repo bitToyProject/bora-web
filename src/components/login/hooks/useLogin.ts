@@ -1,9 +1,9 @@
 import { authAPI } from 'apis/auth';
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate, useRoutes } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { authState } from 'store/auth/auth';
+import { userState } from 'store/user/user';
 import { ILoginRequest } from 'types/auth.types';
 import Cookies from 'universal-cookie/es6';
 
@@ -11,7 +11,7 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [state, setValue] = useState<ILoginRequest>({ username: '', password: '' });
-  const [_, setAuth] = useRecoilState(authState);
+  const [_, setAuth] = useRecoilState(userState);
   const user = useMutation((loginValue: ILoginRequest) => authAPI.post.login(loginValue), {
     onSuccess: (data, variables, contxt) => {
       cookies.set('accessToken', data.data.accessToken, {

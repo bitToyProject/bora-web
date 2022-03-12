@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { authState } from 'store/auth/auth';
 import { useLogin } from './hooks/useLogin';
 
 const LoginContainer = () => {

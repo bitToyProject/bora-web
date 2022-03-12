@@ -1,4 +1,5 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosPromise } from 'axios';
+import axios, { AxiosPromise } from 'axios';
+import { ACCESS_TOKEN } from 'constants/token';
 import {
   ICheckUsernameResponse,
   ILoginRequest,
@@ -8,14 +9,29 @@ import {
   ISignupRequest,
   ISignupResponse,
 } from 'types/auth.types';
-import { IGetUserResponse } from '../../types/user.types';
+import Cookies from 'universal-cookie/es6';
+import { storage } from 'utils/storage';
+
+interface IGetRequest<Q, P> {
+  query?: Q;
+  parmas?: P;
+}
+
+interface IPostRequest {}
 
 export namespace authAPI {
   export const get = {
-    check: (params: { username: string }): AxiosPromise<ICheckUsernameResponse> => {
-      return axios.get(`/auth/check/${params.username}`);
+    check: (
+      request: IGetRequest<{ username: string }, {}>,
+    ): AxiosPromise<ICheckUsernameResponse> => {
+      return axios.get(`/auth/check/${request.query?.username}`, {
+        headers: {
+          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
+        },
+      });
     },
   };
+
   export const post = {
     login: (body: ILoginRequest): AxiosPromise<ILoginResponse> => {
       return axios.post(`/auth/login`, body);

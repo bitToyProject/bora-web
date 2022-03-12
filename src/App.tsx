@@ -6,11 +6,16 @@ import { GlobalStyles } from 'styles/GlobalStyles';
 import { Wrapper } from 'layouts';
 import theme from 'styles/theme';
 import { useRecoilState } from 'recoil';
-import { authState } from 'store/auth/auth';
 import LoginContainer from 'components/login/LoginContainer';
 import { MypageContainer } from 'components';
+import { userAPI } from 'apis/user';
+import { userState } from 'store/user/user';
+import Cookies from 'universal-cookie/es6';
+import PrivateRoute from 'components/common/PrivateRoute';
 
 const App = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -18,9 +23,9 @@ const App = () => {
         <Suspense fallback={<div> LOADING......</div>}>
           <Wrapper>
             <Routes>
+              <Route path="/" element={<PrivateRoute path="/" />} />
               <Route path={'/user/signup'} element={<SignupContainer />} />
               <Route path={'/user/mypage'} element={<MypageContainer />} />
-              <Route path={'/'} element={<LoginContainer />} />
             </Routes>
           </Wrapper>
         </Suspense>

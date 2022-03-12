@@ -6,11 +6,11 @@ import Select from 'components/common/Select';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
-import { userState } from 'store/user/user';
-import { gender, IUser } from 'types/user.types';
+import { IUserState, userState } from 'store/user/user';
+import { gender } from 'types/user.types';
 
 const MypageContainer = () => {
-  const modifyUser = useMutation((value: IUser) => userAPI.put.modifyUser({ ...inputs }), {
+  const modifyUser = useMutation((value: IUserState) => userAPI.put.modifyUser({ ...inputs }), {
     onSuccess: (data, variables, contxt) => {
       alert('사용자 정보가 변경 되었습니다.');
     },
@@ -19,10 +19,10 @@ const MypageContainer = () => {
     },
   });
 
-  const user = useRecoilValue<IUser | null>(userState);
+  const user = useRecoilValue<IUserState | null>(userState);
 
   const [selectedOption, setSelectedOption] = useState<string>('');
-  const [inputs, setInputs] = useState<IUser>({
+  const [inputs, setInputs] = useState<IUserState>({
     username: '',
     firstName: '',
     nickname: '',
