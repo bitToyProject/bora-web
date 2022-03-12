@@ -1,13 +1,14 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Routes, useNavigate } from 'react-router';
 import SignupContainer from 'components/signup/SignupContainer';
 import { Global, ThemeProvider } from '@emotion/react';
 import { GlobalStyles } from 'styles/GlobalStyles';
 import { Wrapper } from 'layouts';
 import LoginContainer from 'components/login/LoginContainer';
-import { MypageContainer, TodoContainer } from 'components';
+import { MypageContainer } from 'components';
 import PrivateRoute from 'components/common/PrivateRoute';
 import { theme } from 'styles/theme';
+import TodoContainer from 'components/todo/TodoContainer';
 
 const App = () => {
   const navigate = useNavigate();
