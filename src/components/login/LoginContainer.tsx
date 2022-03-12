@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Input from 'components/common/Input';
 import React from 'react';
+import { theme } from 'styles/theme';
 import { useLogin } from './hooks/useLogin';
 
 const LoginContainer = () => {
@@ -10,22 +11,24 @@ const LoginContainer = () => {
     <Form onSubmit={event.onSubmitForm}>
       <Header>Sign in to Bora</Header>
       <InputContainer>
-        <div>
+        <InputWrapper>
+          <label>username</label>
           <Input
             value={user.username}
             onChange={event.onChangeUsername}
             placeholder="아이디를 입력해주세요."
             style={{ height: 28 }}
           />
-        </div>
-        <div>
+        </InputWrapper>
+        <InputWrapper>
+          <label>password</label>
           <Input
             value={user.password}
             onChange={event.onChangePassword}
             placeholder="비밀번호를 입력해주세요."
             style={{ height: 28 }}
           />
-        </div>
+        </InputWrapper>
         <Button>sign in</Button>
       </InputContainer>
     </Form>
@@ -58,6 +61,14 @@ const InputContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px;
+
+  & > div:not(:last-child) {
+    margin-bottom: 20px;
+  }
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
 `;
 
 // const Input = styled.input`
@@ -69,6 +80,10 @@ const InputContainer = styled.div`
 
 const Button = styled.button`
   width: 100%;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.colors.main};
 `;
 
 export default LoginContainer;
