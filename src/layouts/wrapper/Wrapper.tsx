@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Header } from 'layouts';
 import React from 'react';
-import theme from 'styles/theme';
 
 const Wrapper = ({ children }: any) => {
   return (
@@ -22,7 +21,7 @@ const Container = styled.div`
 
 const InnerContainer = styled.div`
   min-height: calc(100vh - 101px);
-  background-color: ${theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const ChildrenWrapper = styled.div`

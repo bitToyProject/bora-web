@@ -10,14 +10,20 @@ import { IUserState, userState } from 'store/user/user';
 import { gender } from 'types/user.types';
 
 const MypageContainer = () => {
-  const modifyUser = useMutation((value: IUserState) => userAPI.put.modifyUser({ ...inputs }), {
-    onSuccess: (data, variables, contxt) => {
-      alert('사용자 정보가 변경 되었습니다.');
+  const modifyUser = useMutation(
+    (value: IUserState) =>
+      userAPI.put.modifyUser({
+        ...inputs,
+      }),
+    {
+      onSuccess: (data, variables, contxt) => {
+        alert('사용자 정보가 변경 되었습니다.');
+      },
+      onError: (err) => {
+        return;
+      },
     },
-    onError: (err) => {
-      return;
-    },
-  });
+  );
 
   const user = useRecoilValue<IUserState | null>(userState);
 
@@ -67,6 +73,7 @@ const MypageContainer = () => {
     <MypageTemplate
       lastName={
         <Input
+          disabled
           name="lastName"
           value={inputs.lastName}
           type={'text'}
@@ -76,6 +83,7 @@ const MypageContainer = () => {
       }
       firstName={
         <Input
+          disabled
           name="firstName"
           value={inputs.firstName}
           type={'text'}
@@ -94,6 +102,7 @@ const MypageContainer = () => {
       }
       phoneNumber={
         <Input
+          disabled
           name="phoneNumber"
           value={inputs.phoneNumber}
           type={'text'}
