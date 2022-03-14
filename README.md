@@ -1,47 +1,38 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# BORA
+협업 관리 툴 토이 프로젝트 개발
+참고 어플 : swit, clickup, slack, trello
+협업툴을 게임 플레이 하듯이 만드는게 목적이다. 
+디자인은 픽셀 로그라이크 같은 느낌으로 진행 할 예정.
+태스크 또는 서브 태스크를 수행 할때 마다 경험치를 얻어 레벨업을 하여 칭호를 얻는 과정을 통해 팀원의 성취감과 재미를 주는 서비스를 제공할 목표
 
-## Available Scripts
 
-In the project directory, you can run:
+# 소스코드 작성 규칙
+모든 소스코드와 커밋은 아래 규칙에 따라 작성되어야 합니다.
+소스코드 작성 규칙은 지속적으로 추가 또는 수정될 수 있습니다.
 
-### `npm start`
+모든 변수 및 메서드명은 camel case rule(첫 글자는 소문자, 새로운 어절이 시작되는 부분은 대문자)을 따릅니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+예: divMain (O) div_main (X) divmain (X) DivMain(X)
+모든 클래스명은 camel case rule을 따르되, 첫 글자를 대문자로 합니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+예: DiscoverService (O) discoverService (X) Discover_service (X)
+모든 소스코드의 상단에는 아래 예시와 같은 양식에 따라 주석 헤더를 삽입합니다. (여러 줄 주석 문법은 언어에 따라 달라질 수 있습니다.)
 
-### `npm test`
+/*
+example.java(파일명)	Jinwook oh(작성자)	2021.7.31(작성일)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Simple description here (간단한 설명)
+*/
+이외에도 코드 가독성을 위해 적절한 위치에 주석을 삽입합니다.
 
-### `npm run build`
+# Git 커밋 규칙
+커밋 규칙은 지속적으로 추가 또는 수정될 수 있습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+커밋 메시지의 시작은 다음 prefix 중 하나로 합니다. (예: feat: Discover 컴포넌트 추가)
+feat: 기능 추가
+docs: 문서 수정 (README.md, 개발문서, HTML 단순 내용 수정 등)
+refactor: 리팩토링 (기능 상의 변화는 없으나 가독성, 유지보수성을 위해 코드를 수정한 경우)
+fix: 문제 해결 (자세한 문제와 해결 방법을 커밋 메시지에 명시)
+커밋 메시지의 내용은 수정 사항을 최대한 자세히 명시할 수 있도록 작성합니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# bora-web
