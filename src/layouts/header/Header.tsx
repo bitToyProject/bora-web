@@ -1,9 +1,17 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LOGO } from 'static';
+import { storage } from 'utils/storage';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    storage.clear();
+    navigate('/login');
+  };
+
   return (
     <HeaderContainer>
       <Logo src={LOGO}></Logo>
@@ -19,9 +27,7 @@ const Header = () => {
           </Link>
         </Menu>
         <Menu>
-          <Link to="/logout">
-            <span>로그아웃</span>
-          </Link>
+          <span onClick={handleLogout}>로그아웃</span>
         </Menu>
       </MenuContainer>
     </HeaderContainer>
