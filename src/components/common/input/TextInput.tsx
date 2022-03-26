@@ -20,14 +20,12 @@ const TextInput = (input: PropTypes['input']) => {
   }, [inputValue.value]);
 
   return (
-    <>
-      <input
-        type={input.type}
-        disabled={input.disabled}
-        placeholder={input.placeholder}
-        {...inputValue}
-      />
-    </>
+    <input
+      type={input.type}
+      disabled={input.disabled}
+      placeholder={input.placeholder}
+      {...inputValue}
+    />
   );
 };
 

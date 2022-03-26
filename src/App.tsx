@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router';
 import SignupContainer from 'components/signup/SignupContainer';
-import { Global } from '@emotion/react';
+import { css, Global } from '@emotion/react';
 import { GlobalStyles } from 'styles/GlobalStyles';
 
 const App = () => {
