@@ -1,0 +1,1 @@
+export { default as LOGO } from 'static/image/logo.png';

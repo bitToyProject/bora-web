@@ -51,4 +51,17 @@ export namespace validation {
   // export const phoneNum = (phone: string): IValidatorRes => {
   //   return;
   // };
+
+  export const hasNull = (checkVal: Array<any>): boolean => {
+    const nullExp = (val: any) => {
+      return (
+        val === '' ||
+        val === null ||
+        val === undefined ||
+        (typeof val === 'object' && Object.keys(val).length === 0) ||
+        val.length === 0
+      );
+    };
+    return checkVal.some(nullExp) ? true : false;
+  };
 }

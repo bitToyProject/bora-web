@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { END_POINT } from 'constants/url';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -7,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import App from './App';
 
-axios.defaults.baseURL = 'http://192.168.0.8:8080';
+axios.defaults.baseURL = END_POINT;
 
 const queryClient = new QueryClient();
 
