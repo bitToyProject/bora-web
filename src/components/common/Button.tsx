@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 interface Props {
   text: string;
-  onClick: () => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({ text, onClick }: Props) => {
@@ -20,8 +20,6 @@ const ButtonWrapper = styled.div`
   button {
     font-size: 18px;
     font-weight: bold;
-    width: 150px;
-    height: 50px;
     padding: 10px;
     border: none;
     color: #fff;

@@ -1,21 +1,68 @@
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { authAPI } from 'apis/auth';
 import Input from 'components/common/Input';
-import React from 'react';
-import { theme } from 'styles/theme';
-import { useLogin } from './hooks/useLogin';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/token';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import { userState } from 'store/user/user';
+import { ILoginRequest } from 'types/auth.types';
+import { storage } from 'utils/storage';
+import axios, { AxiosError } from 'axios';
 
 const LoginContainer = () => {
-  const { state: user, event } = useLogin();
+  const navigate = useNavigate();
+  const [state, setValue] = useState<ILoginRequest>({ username: '', password: '' });
+  const [_, setAuth] = useRecoilState(userState);
+  const user = useMutation((loginValue: ILoginRequest) => authAPI.post.login(loginValue), {
+    onSuccess: (data, variables, contxt) => {
+      storage.set(ACCESS_TOKEN, data.data.accessToken);
+      storage.set(REFRESH_TOKEN, data.data.refreshToken);
+      setAuth(data.data);
+      navigate('/');
+    },
+    onError: (error: AxiosError) => {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.status);
+      }
+    },
+  });
+
+  const onChangeUsername = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue({
+      ...state,
+      username: event.target.value,
+    });
+  };
+
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue({
+      ...state,
+      password: event.target.value,
+    });
+  };
+
+  const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    user.mutate(state);
+  };
+
+  useEffect(() => {
+    if (storage.get(ACCESS_TOKEN)) {
+      navigate(-1);
+    }
+  }, []);
 
   return (
-    <Form onSubmit={event.onSubmitForm}>
+    <Form onSubmit={onSubmitForm}>
       <Header>Sign in to Bora</Header>
       <InputContainer>
         <InputWrapper>
           <label>username</label>
           <Input
-            value={user.username}
-            onChange={event.onChangeUsername}
+            value={user.data?.data.username}
+            onChange={onChangeUsername}
             placeholder="아이디를 입력해주세요."
             style={{ height: 28 }}
           />
@@ -23,13 +70,14 @@ const LoginContainer = () => {
         <InputWrapper>
           <label>password</label>
           <Input
-            value={user.password}
-            onChange={event.onChangePassword}
+            value={user.data?.data.username}
+            onChange={onChangePassword}
             placeholder="비밀번호를 입력해주세요."
             style={{ height: 28 }}
           />
         </InputWrapper>
         <Button>sign in</Button>
+        <Button onClick={() => navigate('/signup')}>sign Up</Button>
       </InputContainer>
     </Form>
   );
@@ -70,13 +118,6 @@ const InputContainer = styled.div`
 const InputWrapper = styled.div`
   width: 100%;
 `;
-
-// const Input = styled.input`
-//   height: 48px;
-//   padding: 16px;
-//   border: 1px solid gray;
-//   border-radius: 4px;
-// `;
 
 const Button = styled.button`
   width: 100%;

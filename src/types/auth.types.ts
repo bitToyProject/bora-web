@@ -1,3 +1,4 @@
+import { authorityEnum, titleEnum } from 'constants/enum';
 import { IUserState } from 'store/user/user';
 
 export interface ILoginRequest {
@@ -27,17 +28,18 @@ export interface IReissueResponse {
 }
 
 export interface ISignupRequest {
-  authKey: string;
-  authority: 'ROLE_ADMIN' | 'ROLE_USER';
+  // userId?: number;
+  // authKey?: string;
+  authority: authorityEnum;
   firstName: string;
   gender: number;
   lastName: string;
   nickName: string;
   password: string;
   phoneNum: string;
-  title: 'BEGINNER' | 'HUNTER' | 'MASTER' | 'PERFORMER' | 'RAINGER' | 'STARTER';
-  userId: number;
+  title: titleEnum;
   username: string;
+  checkPassword?: string;
 }
 
 export interface ISignupResponse {}
