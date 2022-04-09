@@ -41,7 +41,6 @@ export default Header;
 
 const Container = styled.div`
   position: relative;
-  float: right;
   width: 100%;
   padding: 4px 60px;
   border-bottom: 1px solid #d9d9d9;
