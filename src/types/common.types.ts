@@ -1,4 +1,4 @@
-export interface IPagination{
+export interface IPagination {
   totalPage: number;
   page: number;
   size: number;
@@ -6,5 +6,4 @@ export interface IPagination{
   end: number;
   prev: boolean;
   next: boolean;
-  pageList?: null;
 }

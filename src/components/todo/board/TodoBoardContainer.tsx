@@ -1,51 +1,128 @@
 import styled from '@emotion/styled';
-import { APITodoListTest } from 'apis/todo';
-import React from 'react';
+import { TodoType } from 'constants/todo';
+import React, { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
-import { moveTodoState } from 'store/todo/todo';
-import { IMoveTodoCard } from 'types/todo.types';
+import { moveTodoState, todoColumn } from 'store/todo/todo';
+import { IMoveTodoCard, ITodo, ITodoCard, ITodoColumn } from 'types/todo.types';
 import TodoBoardList from './TodoBoardList';
 
-const todos = APITodoListTest;
-
 interface Props {
-  text: string;
-  color: string;
+  items: ITodo[];
 }
 
-const TodoBoardContainer = ({ text, color }: Props) => {
-  const [moveTodo, setMoveTodo] = useRecoilState<IMoveTodoCard[] | null>(moveTodoState);
+const TodoBoardContainer = ({ items }: Props) => {
+  const [columns, setColumns] = useRecoilState<ITodoColumn>(todoColumn);
+
+  const todo = items.filter((item) => {
+    return item.todoType === columns.todo.name;
+  });
+
+  const progress = items.filter((item) => {
+    return item.todoType === columns.progress.name;
+  });
+
+  const review = items.filter((item) => {
+    return item.todoType === columns.review.name;
+  });
+
+  const done = items.filter((item) => {
+    return item.todoType === columns.done.name;
+  });
+
+  useEffect(() => {
+    // TO DO : recoil initial value 저장 할 수 있도록 하기
+    setColumns({
+      todo: {
+        name: TodoType.TODO,
+        color: '#897cf8',
+        items: todo,
+      },
+      progress: {
+        name: TodoType.INPROGRESS,
+        color: '#fc587e',
+        items: progress,
+      },
+      review: {
+        name: TodoType.REVIEW,
+        color: '#ffd32d',
+        items: review,
+      },
+      done: {
+        name: TodoType.DONE,
+        color: '#7bc95f',
+        items: done,
+      },
+    });
+  }, []);
 
   const handleChangeDrag = (result: any) => {
-    console.log(result);
-
-    const sourceListId = result.source.droppableId;
-    const destListId = result.destination.droppableId;
-    const oldCardIndex = result.source.index;
-    const newCardIndex = result.destination.index;
-
-    // 리스트의 경로를 벗어난 경우
     if (!result.destination) {
       return;
     }
 
-    // 카드 옮기기
-    if (oldCardIndex !== newCardIndex || sourceListId !== destListId) {
-      const sourceCards = Array.from(sourceListId.cards);
-      const [removedCard] = sourceCards.splice(oldCardIndex, 1);
-      const destinationCards = Array.from(destListId.cards);
+    const { source, destination } = result;
 
-      destinationCards.splice(newCardIndex, 0, removedCard);
+    if (source.droppableId !== destination.droppableId) {
+      console.log(result);
+      const sourceColumn = source.droppableId.toLowerCase();
+      const destinationColumn = destination.droppableId.toLowerCase();
+      const sourceItems = sourceColumn.items;
+      const destinationItems = destinationColumn.items;
 
-      // TODO: 카드옮기기 가능하게 하기
+      console.log(sourceColumn);
+      console.log(destinationItems);
+      console.log(destination.index);
+      // console.log(removed);
+      const [removed] = sourceItems.splice(source.index, 1);
+
+      destinationItems.splice(destination.index, 0, removed);
+
+      setColumns({
+        ...columns,
+        [source.droppableId.toLowerCase()]: {
+          ...sourceColumn,
+          items: sourceItems,
+        },
+        [destination.droppableId.toLowerCase()]: {
+          ...destinationColumn,
+          items: destinationItems,
+        },
+      });
+    } else {
+      // const columnName: ITodoCard = source.droppableId.toLowerCase();
+      // const column = columns[columnName];
+      const column = columns['todo'];
+      const copiedItems = [...column.items];
+      const [removed] = copiedItems.splice(source.index, 1);
+
+      copiedItems.splice(destination.index, 0, removed);
+
+      setColumns({
+        ...columns,
+        [source.droppableId.toLowerCase()]: {
+          ...column,
+          items: copiedItems,
+        },
+      });
     }
   };
+
+  console.log('columns :', columns);
 
   return (
     <TodoDragListBlock>
       <DragDropContext onDragEnd={handleChangeDrag}>
-        <TodoBoardList text={text} color={color} items={todos} />
+        {Object.entries(columns).map(([name, column], index: number) => {
+          return (
+            <TodoBoardList
+              key={`${column.name}-${index}`}
+              text={column.name}
+              color={column.color}
+              items={column.items}
+            />
+          );
+        })}
       </DragDropContext>
     </TodoDragListBlock>
   );
@@ -53,4 +130,8 @@ const TodoBoardContainer = ({ text, color }: Props) => {
 
 export default TodoBoardContainer;
 
-const TodoDragListBlock = styled.div``;
+const TodoDragListBlock = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+`;

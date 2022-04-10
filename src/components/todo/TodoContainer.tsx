@@ -1,15 +1,28 @@
 import { TodoTemplate } from 'components';
 import React, { useState } from 'react';
-import { TodoListType } from 'types/todo.types';
 import TodoTypeButtonList from './TodoTypeButtonList';
 import TodoListContainer from './TodoListContainer';
+import { TodoListType } from 'constants/todo';
+import { useQuery } from 'react-query';
+import { APITodoListTest, TodoAPI } from 'apis/todo';
 
 const TodoContainer = () => {
-  const [type, setType] = useState<string>(TodoListType.board);
+  const { isLoading, data } = useQuery('todoList', async () => {
+    return APITodoListTest();
+  });
+
+  const [type, setType] = useState<string>(TodoListType.BOARD);
 
   const handleClickTodoListType = (item: { name: string; value: string }) => {
     setType(item.value);
   };
+
+  // const todoItems = data ? data.todoList : [];
+  const todoItems = data || [];
+
+  if (isLoading) {
+    return <>로딩</>;
+  }
 
   return (
     <TodoTemplate
@@ -19,21 +32,21 @@ const TodoContainer = () => {
           items={[
             {
               name: '보드',
-              value: TodoListType.board,
+              value: TodoListType.BOARD,
             },
             {
               name: '리스트',
-              value: TodoListType.list,
+              value: TodoListType.LIST,
             },
             {
               name: '캘린더',
-              value: TodoListType.calender,
+              value: TodoListType.CALENDAER,
             },
           ]}
           onClick={handleClickTodoListType}
         />
       }
-      List={<TodoListContainer type={type} />}
+      List={<TodoListContainer type={type} items={todoItems} />}
     />
   );
 };

@@ -15,7 +15,7 @@ const TodoBoardList = ({ text, color, items }: Props) => {
   return (
     <TodoDragListBlock>
       <TodoBoardHeader text={text} color={color} total={4} />
-      <Droppable droppableId="todos">
+      <Droppable droppableId={text}>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {items.map((item: ITodo, index: number) => {

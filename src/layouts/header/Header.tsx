@@ -1,37 +1,39 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { LOGO } from 'static';
-import { storage } from 'utils/storage';
 
 const Header = () => {
-  const navigate = useNavigate();
+  const [isToggle, setIsToggle] = useState<boolean>(false);
 
-  const handleLogout = () => {
-    storage.clear();
-    navigate('/login');
-  };
+  const toggleMenu = useCallback(() => {
+    setIsToggle((prev) => !prev);
+  }, []);
 
   return (
-    <HeaderContainer>
-      <Logo src={LOGO}></Logo>
-      <MenuContainer>
-        <Menu>
-          <Link to="/">
-            <span>홈</span>
-          </Link>
-        </Menu>
-        <Menu>
-          <Link to="/todo">
-            <span>할일</span>
-          </Link>
-        </Menu>
-        <Menu>
-          <span onClick={handleLogout}>로그아웃</span>
-        </Menu>
-      </MenuContainer>
-    </HeaderContainer>
+    <Container>
+      <Contents>
+        <CharacterImage
+          onClick={toggleMenu}
+          src="https://st3.depositphotos.com/33121556/34607/v/380/depositphotos_346073304-stock-illustration-pixel-wizard-games-websites.jpg?forcejpeg=true"
+        />
+        {isToggle && (
+          <>
+            <MenuContainer>
+              <Menu>
+                <CharacterImage src="https://st3.depositphotos.com/33121556/34607/v/380/depositphotos_346073304-stock-illustration-pixel-wizard-games-websites.jpg?forcejpeg=true" />
+                <CharacterInfo>
+                  <CharacterName>chanuknoh</CharacterName>
+                  <CharacterLevel>Lv.14</CharacterLevel>
+                </CharacterInfo>
+              </Menu>
+              <Menu>회원정보</Menu>
+              <Menu>인벤토리</Menu>
+              <Menu>로그아웃</Menu>
+            </MenuContainer>
+            <Outlayer onClick={toggleMenu} />
+          </>
+        )}
+      </Contents>
+    </Container>
   );
 };
 
