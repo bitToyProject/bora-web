@@ -1,4 +1,3 @@
-import { TodoType } from 'constants/todo';
 import { IPagination } from './common.types';
 
 export interface ITodoResponse extends IPagination {
