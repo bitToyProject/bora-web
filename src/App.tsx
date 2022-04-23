@@ -11,6 +11,7 @@ import { theme } from 'styles/theme';
 import TodoContainer from 'components/todo/TodoContainer';
 import { MypageContainer } from 'components';
 import TextEditorContainer from 'components/textEditor/TextEditorContainer';
+import UserList from 'components/user/UserList';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/login" element={<LoginContainer />} />
               <Route path="/textEditor" element={<TextEditorContainer />} />
             </Routes>
+            <UserList />
           </Wrapper>
         </Suspense>
       </ThemeProvider>
