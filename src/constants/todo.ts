@@ -1,7 +1,7 @@
 export const TodoListType = {
   LIST: 'list',
   BOARD: 'board',
-  CALENDAER: 'calender',
+  CALENDAR: 'calendar',
 } as const;
 
 export const TodoType = {
