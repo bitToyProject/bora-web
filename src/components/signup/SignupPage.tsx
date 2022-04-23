@@ -1,9 +1,9 @@
-import { css } from '@emotion/css';
-import styled, { CSSObject } from '@emotion/styled';
+import styled from '@emotion/styled';
 import { authAPI } from 'apis/auth';
+import axios from 'axios';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
-import React, { ChangeEvent, useRef, useState, useEffect, FormEvent, MouseEvent } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { IMaskInput } from 'react-imask';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
@@ -11,6 +11,8 @@ import { ISignupRequest } from 'types/auth.types';
 import { validation } from 'utils/validation';
 
 interface Props {}
+
+// unknown type 가드
 
 const SignupPage = ({ ...props }: Props) => {
   const navigate = useNavigate();
@@ -35,36 +37,32 @@ const SignupPage = ({ ...props }: Props) => {
     });
   };
 
-  const { mutate, isLoading } = useMutation(
-    ['sinupReq'],
-    async (val: ISignupRequest) => await authAPI.post.signup(val),
+  const { mutate, status, error, isLoading } = useMutation(
+    ['registerReq'],
+    (val: ISignupRequest) => authAPI.post.signup(val),
     {
-      onSuccess: (data) => {},
+      onSuccess: (res) => {
+        if (res.status === 200) {
+          navigate('/login');
+        }
+      },
       onError: (error) => {
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+        } else {
+        }
       },
     },
   );
 
-  console.log(isLoading);
-
   const reqSignup = (e: MouseEvent<HTMLButtonElement>) => {
-    const checkNullArr = [
-      signupVal.authority,
-      signupVal.firstName,
-      signupVal.gender,
-      signupVal.lastName,
-      signupVal.nickName,
-      signupVal.password,
-      signupVal.phoneNum,
-      signupVal.title,
-      signupVal.username,
-      signupVal.checkPassword,
-    ];
-    mutate(signupVal);
+    e.preventDefault();
+    e.stopPropagation();
 
-    // if (!validation.hasNull(checkNullArr)) {
-    // }
+    if (!validation.hasNull(Object.values(signupVal))) {
+      mutate(signupVal);
+    } else {
+      alert('필수값들을 입력해주세요');
+    }
   };
 
   return (
@@ -116,9 +114,15 @@ const SignupPage = ({ ...props }: Props) => {
         value={signupVal.phoneNum}
         name="phoneNum"
         unmask={true}
-        onAccept={(value, mask) => console.log(value)}
-      />
+        onAccept={(value, mask) => {
+          // console.log(isString(value));
+          setSignupVal({ ...signupVal, phoneNum: value as string });
 
+          // if (isString(value)) {
+          //   setSignupVal({ ...signupVal, phoneNum: value });
+          // }
+        }}
+      />
       <label>닉네임</label>
       <Input
         type="text"
