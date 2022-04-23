@@ -10,6 +10,7 @@ import PrivateRoute from 'components/common/PrivateRoute';
 import { theme } from 'styles/theme';
 import TodoContainer from 'components/todo/TodoContainer';
 import { MypageContainer } from 'components';
+import TextEditorContainer from 'components/textEditor/TextEditorContainer';
 
 const App = () => {
   return (
@@ -22,8 +23,9 @@ const App = () => {
               <Route path="/" element={<PrivateRoute element={<></>} />} />
               <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
               <Route path="/signup" element={<SignupContainer />} />
-              <Route path="/todo" element={<PrivateRoute element={<TodoContainer />} />} />
+              <Route path="/todo" element={<TodoContainer />} />
               <Route path="/login" element={<LoginContainer />} />
+              <Route path="/textEditor" element={<TextEditorContainer />} />
             </Routes>
           </Wrapper>
         </Suspense>
