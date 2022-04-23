@@ -108,8 +108,6 @@ const TodoBoardContainer = ({ items }: Props) => {
     }
   };
 
-  console.log('columns :', columns);
-
   return (
     <TodoDragListBlock>
       <DragDropContext onDragEnd={handleChangeDrag}>

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Header } from 'layouts';
-import Sidebar from 'layouts/sidebar/Sidebar';
+import Sidebar from 'components/todo/sidebar/Sidebar';
 import React from 'react';
 
 const Wrapper = ({ children }: any) => {
@@ -24,13 +24,15 @@ const Container = styled.div`
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.background};
   width: 100%;
   height: 100vh;
 `;
 
 const ChildrenWrapper = styled.div`
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.background};
+  width: 100%;
+  margin: 0 auto;
   padding: 30px 60px;
   max-width: 1400px;
 `;

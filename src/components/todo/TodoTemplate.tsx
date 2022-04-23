@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { ReactElement } from 'react';
+import Sidebar from './sidebar/Sidebar';
 
 interface Props {
   TypeButtonList: ReactElement;
@@ -9,18 +10,31 @@ interface Props {
 const TodoTemplate = ({ TypeButtonList, List }: Props) => {
   return (
     <TodoTemplateBlock>
-      <Container>
-        <Title>할일</Title>
-        {TypeButtonList}
-      </Container>
-      {List}
+      <Sidebar />
+      <Main>
+        <Container>
+          <Title>할일</Title>
+          {TypeButtonList}
+        </Container>
+        {List}
+      </Main>
     </TodoTemplateBlock>
   );
 };
 
 export default TodoTemplate;
 
-const TodoTemplateBlock = styled.div``;
+const TodoTemplateBlock = styled.div`
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+`;
+
+const Main = styled.div`
+  width: 85%;
+  padding: 11px 24px;
+`;
 
 const Container = styled.div`
   display: flex;
