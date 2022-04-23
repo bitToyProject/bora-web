@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { TodoType } from 'constants/todo';
 import React, { useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
-import { moveTodoState, todoColumn } from 'store/todo/todo';
-import { IMoveTodoCard, ITodo, ITodoCard, ITodoColumn } from 'types/todo.types';
+import { todoColumn } from 'store/todo/todo';
+import { ITodo, ITodoColumn } from 'types/todo.types';
 import TodoBoardList from './TodoBoardList';
 
 interface Props {
@@ -18,8 +18,8 @@ const TodoBoardContainer = ({ items }: Props) => {
     return item.todoType === columns.todo.name;
   });
 
-  const progress = items.filter((item) => {
-    return item.todoType === columns.progress.name;
+  const inprogress = items.filter((item) => {
+    return item.todoType === columns.inprogress.name;
   });
 
   const review = items.filter((item) => {
@@ -31,17 +31,16 @@ const TodoBoardContainer = ({ items }: Props) => {
   });
 
   useEffect(() => {
-    // TO DO : recoil initial value 저장 할 수 있도록 하기
     setColumns({
       todo: {
         name: TodoType.TODO,
         color: '#897cf8',
         items: todo,
       },
-      progress: {
+      inprogress: {
         name: TodoType.INPROGRESS,
         color: '#fc587e',
-        items: progress,
+        items: inprogress,
       },
       review: {
         name: TodoType.REVIEW,
@@ -56,24 +55,18 @@ const TodoBoardContainer = ({ items }: Props) => {
     });
   }, []);
 
-  const handleChangeDrag = (result: any) => {
+  const handleChangeDrag = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
-
     const { source, destination } = result;
 
     if (source.droppableId !== destination.droppableId) {
-      console.log(result);
-      const sourceColumn = source.droppableId.toLowerCase();
-      const destinationColumn = destination.droppableId.toLowerCase();
-      const sourceItems = sourceColumn.items;
-      const destinationItems = destinationColumn.items;
+      const sourceColumn = columns[source.droppableId.toLowerCase()];
+      const destinationColumn = columns[destination.droppableId.toLowerCase()];
+      const sourceItems = [...sourceColumn.items];
+      const destinationItems = [...destinationColumn.items];
 
-      console.log(sourceColumn);
-      console.log(destinationItems);
-      console.log(destination.index);
-      // console.log(removed);
       const [removed] = sourceItems.splice(source.index, 1);
 
       destinationItems.splice(destination.index, 0, removed);
@@ -89,26 +82,8 @@ const TodoBoardContainer = ({ items }: Props) => {
           items: destinationItems,
         },
       });
-    } else {
-      // const columnName: ITodoCard = source.droppableId.toLowerCase();
-      // const column = columns[columnName];
-      const column = columns['todo'];
-      const copiedItems = [...column.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-
-      copiedItems.splice(destination.index, 0, removed);
-
-      setColumns({
-        ...columns,
-        [source.droppableId.toLowerCase()]: {
-          ...column,
-          items: copiedItems,
-        },
-      });
     }
   };
-
-  console.log('columns :', columns);
 
   return (
     <TodoDragListBlock>
