@@ -15,7 +15,7 @@ export const todoColumn = atom<ITodoColumn>({
       color: '#897cf8',
       items: [],
     },
-    progress: {
+    inprogress: {
       name: TodoType.INPROGRESS,
       color: '#fc587e',
       items: [],

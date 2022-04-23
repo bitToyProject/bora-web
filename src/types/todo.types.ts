@@ -26,10 +26,7 @@ export interface IMoveTodoCard {
 }
 
 export interface ITodoColumn {
-  todo: ITodoCard;
-  progress: ITodoCard;
-  review: ITodoCard;
-  done: ITodoCard;
+  [key: string]: ITodoCard;
 }
 
 export interface ITodoCard {

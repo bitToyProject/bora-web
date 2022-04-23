@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TodoListType } from 'constants/todo';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ITodo } from 'types/todo.types';
 import TodoBoardContainer from './board/TodoBoardContainer';
 
