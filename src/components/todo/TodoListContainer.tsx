@@ -1,35 +1,30 @@
 import styled from '@emotion/styled';
-import React from 'react';
-import { TodoListType } from 'types/todo.types';
+import { TodoListType } from 'constants/todo';
+import React, { useEffect } from 'react';
+import { ITodo } from 'types/todo.types';
 import TodoBoardContainer from './board/TodoBoardContainer';
 
 interface Props {
+  items: ITodo[];
   type: string;
 }
 
-const TodoListContainer = ({ type }: Props) => {
-  if (type === TodoListType.list) {
+const TodoListContainer = ({ items, type }: Props) => {
+  if (type === TodoListType.LIST) {
     return <></>;
   }
 
-  if (type === TodoListType.calender) {
+  if (type === TodoListType.CALENDAER) {
     return <></>;
   }
 
   return (
     <Board>
-      <TodoBoardContainer text="Todo" color="#897cf8" />
-      <TodoBoardContainer text="In Progress" color="#fc587e" />
-      <TodoBoardContainer text="Review" color="#ffd32d" />
-      <TodoBoardContainer text="Done" color="#7bc95f" />
+      <TodoBoardContainer items={items} />
     </Board>
   );
 };
 
 export default TodoListContainer;
 
-const Board = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
-`;
+const Board = styled.div``;

@@ -1,30 +1,39 @@
-import { IPagination } from "./common.types";
+import { TodoType } from 'constants/todo';
+import { IPagination } from './common.types';
 
-export const TodoListType = {
-  list: 'list',
-  board: 'board',
-  calender: 'calender' 
-} as const;
+export interface ITodoResponse extends IPagination {
+  todoList: ITodo[];
+}
 
-export interface ITodo{
-  todoId: number;
-  userId: number;
-  title: string;
-  start: string;
-  end: string;
+export interface ITodo {
+  assignee: string | null;
   description: string;
-  viewer: string;
-  priority: number;
+  done: boolean | null;
+  end: string;
   nickname: string;
+  point: number;
+  priority: number;
   regDate: string;
-  modDate: string;
+  start: string;
+  title: string;
+  todoId: number;
+  todoType: string;
 }
 
-export interface ITodoResponse extends IPagination{
-  dtoList : ITodo[];
+export interface IMoveTodoCard {
+  sourceList: [];
+  destList: [];
 }
 
-export interface IMoveTodoCard{
-  sourceList : [];
-  destList : [];
+export interface ITodoColumn {
+  todo: ITodoCard;
+  progress: ITodoCard;
+  review: ITodoCard;
+  done: ITodoCard;
+}
+
+export interface ITodoCard {
+  name: string;
+  color: string;
+  items: ITodo[];
 }
