@@ -22,6 +22,10 @@ const HomeContainer = () => {
     if (location.pathname === '/') {
       setToggle(false);
     }
+
+    if (location.pathname.length > 1) {
+      setToggle(true);
+    }
   }, [location.pathname]);
 
   return (

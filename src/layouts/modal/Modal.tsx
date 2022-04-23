@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { relative } from 'path';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { IoClose } from 'react-icons/io5';
 
 interface IModalProps {
   children: any;
@@ -10,10 +11,27 @@ interface IModalProps {
 }
 
 export const Modal = ({ children, onCloseModal, activeBtn }: IModalProps) => {
+  const btnRef = useRef<HTMLDivElement>(null);
+  const [btnHeight, setBtnHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (btnRef.current) {
+      setBtnHeight(btnRef.current?.offsetHeight);
+    }
+  }, [btnRef]);
+
   return (
     <Wrapper>
-      {activeBtn && <CloseButton>x</CloseButton>}
-      <ContentLayout>{children}</ContentLayout>
+      <ContentLayout>
+        {activeBtn && (
+          <CloseButton ref={btnRef}>
+            <span onClick={onCloseModal}>
+              <IoClose fontSize={27} />
+            </span>
+          </CloseButton>
+        )}
+        <Content btnHeight={btnHeight}>{children}</Content>
+      </ContentLayout>
       <Outlayer onClick={onCloseModal} />
     </Wrapper>
   );
@@ -31,14 +49,30 @@ const Wrapper = styled.div`
 `;
 
 const CloseButton = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #fff;
+
+  & > span {
+    transition: transform 0.17s;
+
+    cursor: pointer;
+  }
+
+  & > span:hover {
+    transform: rotate(-45deg);
+  }
 `;
 
 const ContentLayout = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const Content = styled.div<{ btnHeight?: number }>`
+  height: calc(100% - ${({ btnHeight }) => btnHeight}px);
 `;
 
 const Outlayer = styled.div`

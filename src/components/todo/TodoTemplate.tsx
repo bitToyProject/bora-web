@@ -32,6 +32,8 @@ const TodoTemplateBlock = styled.div`
 `;
 
 const Main = styled.div`
+  position: absolute;
+  left: 15%;
   width: 85%;
   padding: 11px 24px;
 `;

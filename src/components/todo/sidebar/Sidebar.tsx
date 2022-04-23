@@ -35,8 +35,11 @@ const Sidebar = () => {
 };
 
 const Container = styled.div`
+  position: absolute;
   width: 15%;
+  height: 100%;
   margin: 0px;
+  top: 0;
   background-color: #fff;
   border-right: 1px solid #d9d9d9;
 `;
