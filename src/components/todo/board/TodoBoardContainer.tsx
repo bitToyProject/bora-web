@@ -6,9 +6,10 @@ import TodoBoardList from './TodoBoardList';
 interface Props {
   columns: ITodoColumn;
   onDrag: Dispatch<SetStateAction<ITodoColumn>>;
+  onClick?: () => void;
 }
 
-const TodoBoardContainer = ({ columns, onDrag }: Props) => {
+const TodoBoardContainer = ({ columns, onDrag, onClick }: Props) => {
   const handleChangeDrag = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -48,6 +49,7 @@ const TodoBoardContainer = ({ columns, onDrag }: Props) => {
             text={column.name}
             color={column.color}
             items={column.items}
+            onClick={onClick}
           />
         );
       })}

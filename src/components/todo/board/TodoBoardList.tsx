@@ -9,12 +9,13 @@ interface Props {
   text: string;
   color: string;
   items: ITodo[];
+  onClick?: () => void;
 }
 
-const TodoBoardList = ({ text, color, items }: Props) => {
+const TodoBoardList = ({ text, color, items, onClick }: Props) => {
   return (
     <TodoDragListBlock>
-      <TodoBoardHeader text={text} color={color} total={4} />
+      <TodoBoardHeader text={text} color={color} total={items.length} onClick={onClick} />
       <Droppable droppableId={text}>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>

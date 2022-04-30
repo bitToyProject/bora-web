@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Modal from 'layouts/modal/Modal';
-import UserList from 'components/user/UserList';
 
 const HomeContainer = () => {
   const [toggle, setToggle] = useState(false);
@@ -12,12 +11,12 @@ const HomeContainer = () => {
   const onToggleTodoModal = useCallback(() => {
     setToggle((prev) => !prev);
     navigate('/todo');
-  }, []);
+  }, [navigate]);
 
   const onCloseModal = useCallback(() => {
     setToggle(false);
     navigate('/');
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -31,14 +30,13 @@ const HomeContainer = () => {
 
   return (
     <>
-      <UserList />
       <Wrapper>
         {toggle ? (
           <Modal activeBtn={true} onCloseModal={onCloseModal}>
             <Outlet />
           </Modal>
         ) : (
-          <div onClick={onToggleTodoModal}>show todo</div>
+          <button onClick={onToggleTodoModal}>show todo</button>
         )}
       </Wrapper>
     </>

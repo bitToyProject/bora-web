@@ -11,8 +11,8 @@ const Sidebar = () => {
     <Container>
       <Logo>logo</Logo>
       <Menus>
-        {menus.map((menu, i) => (
-          <Menu key={i}>
+        {menus.map((menu, i: number) => (
+          <Menu key={`menu-${i}`}>
             <AiOutlineHome />
             <span>{menu}</span>
           </Menu>
@@ -23,8 +23,8 @@ const Sidebar = () => {
           <CgMenuGridO />
           <span>Everything</span>
         </Space>
-        {spaces.map((space, i) => (
-          <Space key={i}>
+        {spaces.map((space, i: number) => (
+          <Space key={`space-${i}`}>
             <SpaceLogo>{space.slice(0, 1)}</SpaceLogo>
             <span>{space}</span>
           </Space>
