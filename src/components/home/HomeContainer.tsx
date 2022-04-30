@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Modal from 'layouts/modal/Modal';
+import UserList from 'components/user/UserList';
 
 const HomeContainer = () => {
   const [toggle, setToggle] = useState(false);
@@ -29,15 +30,18 @@ const HomeContainer = () => {
   }, [location.pathname]);
 
   return (
-    <Wrapper>
-      {toggle ? (
-        <Modal activeBtn={true} onCloseModal={onCloseModal}>
-          <Outlet />
-        </Modal>
-      ) : (
-        <div onClick={onToggleTodoModal}>show todo</div>
-      )}
-    </Wrapper>
+    <>
+      <UserList />
+      <Wrapper>
+        {toggle ? (
+          <Modal activeBtn={true} onCloseModal={onCloseModal}>
+            <Outlet />
+          </Modal>
+        ) : (
+          <div onClick={onToggleTodoModal}>show todo</div>
+        )}
+      </Wrapper>
+    </>
   );
 };
 
