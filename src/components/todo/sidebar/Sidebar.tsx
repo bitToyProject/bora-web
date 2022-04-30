@@ -35,12 +35,15 @@ const Sidebar = () => {
 };
 
 const Container = styled.div`
-  width: 200px;
-  height: 100vh;
+  position: absolute;
+  width: 15%;
+  height: 100%;
   margin: 0px;
+  top: 0;
   background-color: #fff;
   border-right: 1px solid #d9d9d9;
 `;
+
 export const Logo = styled.div`
   height: 43px;
   padding: 11px 0;
@@ -48,6 +51,7 @@ export const Logo = styled.div`
   font-size: 22px;
   font-weight: 700;
 `;
+
 export const Menus = styled.div`
   padding: 15px 0;
   border-bottom: 1px solid #c9c9c9;
@@ -72,6 +76,7 @@ export const Menu = styled.div`
 export const Spaces = styled.div`
   padding: 15px 0;
 `;
+
 export const Space = styled.div`
   display: flex;
   align-items: center;

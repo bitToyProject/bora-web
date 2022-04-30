@@ -43,6 +43,7 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   padding: 4px 60px;
+  background-color: #fff;
   border-bottom: 1px solid #d9d9d9;
 `;
 
@@ -50,6 +51,7 @@ const Contents = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
+  max-width: 1400px;
   margin: 0 auto;
 `;
 

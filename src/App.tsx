@@ -5,34 +5,29 @@ import { GlobalStyles } from 'styles/GlobalStyles';
 import { Wrapper } from 'layouts';
 import LoginContainer from 'components/login/LoginContainer';
 import { SignupContainer } from 'components/signup/index';
-
 import PrivateRoute from 'components/common/PrivateRoute';
 import { theme } from 'styles/theme';
 import TodoContainer from 'components/todo/TodoContainer';
 import { MypageContainer } from 'components';
-import TextEditorContainer from 'components/textEditor/TextEditorContainer';
+import HomeContainer from 'components/home/HomeContainer';
 import UserList from 'components/user/UserList';
 
 const App = () => {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Global styles={GlobalStyles} />
-        <Suspense fallback={<div> LOADING......</div>}>
-          <Wrapper>
-            <Routes>
-              <Route path="/" element={<PrivateRoute element={<></>} />} />
-              <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
-              <Route path="/signup" element={<SignupContainer />} />
-              <Route path="/todo" element={<TodoContainer />} />
-              <Route path="/login" element={<LoginContainer />} />
-              <Route path="/textEditor" element={<TextEditorContainer />} />
-            </Routes>
-            <UserList />
-          </Wrapper>
-        </Suspense>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <Global styles={GlobalStyles} />
+      <Suspense fallback={<div> LOADING......</div>}>
+        <Routes>
+          <Route path="/" element={<HomeContainer />}>
+            <Route path="/todo" element={<TodoContainer />} />
+          </Route>
+          <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
+          <Route path="/signup" element={<SignupContainer />} />
+          <Route path="/login" element={<LoginContainer />} />
+        </Routes>
+        <UserList />
+      </Suspense>
+    </ThemeProvider>
   );
 };
 

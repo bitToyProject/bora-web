@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 
 const UserList = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <UserListWrapper>
-      <div className={`menuContainer ${true}`}>1 2 3 4 5 6</div>
+      <div className={`menuContainer ${isOpen ? 'isOpen' : ''}`}>1 2 3 4 5 6</div>
     </UserListWrapper>
   );
 };
@@ -19,7 +20,7 @@ const UserListWrapper = styled.div`
     width: 250px;
     height: 100vh;
     background-color: white;
-    z-index: 1;
+    z-index: 100;
     transition: margin 1s ease-in;
     margin: 0 0 0 -250px;
   }
