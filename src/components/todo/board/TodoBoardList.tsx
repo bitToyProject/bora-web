@@ -10,9 +10,10 @@ interface Props {
   color: string;
   items: ITodo[];
   onClick?: () => void;
+  onDetail?: (item: ITodo) => void;
 }
 
-const TodoBoardList = ({ text, color, items, onClick }: Props) => {
+const TodoBoardList = ({ text, color, items, onClick, onDetail }: Props) => {
   return (
     <TodoDragListBlock>
       <TodoBoardHeader text={text} color={color} total={items.length} onClick={onClick} />
@@ -21,7 +22,12 @@ const TodoBoardList = ({ text, color, items, onClick }: Props) => {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {items.map((item: ITodo, index: number) => {
               return (
-                <TodoBoardListItem key={`todo-drag-${item.todoId}`} item={item} index={index} />
+                <TodoBoardListItem
+                  key={`todo-drag-${item.todoId}`}
+                  item={item}
+                  index={index}
+                  onDetail={onDetail}
+                />
               );
             })}
             {provided.placeholder}

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosPromise } from 'axios';
 import { ACCESS_TOKEN } from 'constants/token';
 import { IGetParameter } from 'types/common.types';
 import { ITodo, ITodoResponse } from 'types/todo.types';
@@ -62,6 +62,19 @@ export namespace TodoAPI {
           next: false,
         };
       }
+    },
+  };
+
+  export const put = {
+    modify: async (parameter: {
+      todoDto: ITodo;
+      todoId: number;
+    }): Promise<AxiosPromise<boolean>> => {
+      return axios.put('/todos/modify', parameter, {
+        headers: {
+          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
+        },
+      });
     },
   };
 }

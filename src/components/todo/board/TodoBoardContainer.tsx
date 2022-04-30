@@ -1,15 +1,16 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { ITodoColumn } from 'types/todo.types';
+import { ITodo, ITodoColumn } from 'types/todo.types';
 import TodoBoardList from './TodoBoardList';
 
 interface Props {
   columns: ITodoColumn;
   onDrag: Dispatch<SetStateAction<ITodoColumn>>;
+  onDetail: (item: ITodo) => void;
   onClick?: () => void;
 }
 
-const TodoBoardContainer = ({ columns, onDrag, onClick }: Props) => {
+const TodoBoardContainer = ({ columns, onDrag, onClick, onDetail }: Props) => {
   const handleChangeDrag = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -50,6 +51,7 @@ const TodoBoardContainer = ({ columns, onDrag, onClick }: Props) => {
             color={column.color}
             items={column.items}
             onClick={onClick}
+            onDetail={onDetail}
           />
         );
       })}

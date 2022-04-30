@@ -11,20 +11,25 @@ import TodoCard from './TodoCard';
 interface Props {
   item: ITodo;
   index: number;
+  onDetail?: (item: ITodo) => void;
 }
 
-const TodoBoardListItem = ({ item, index }: Props) => {
+const TodoBoardListItem = ({ item, index, onDetail }: Props) => {
   const type = useRecoilValue(todoType);
 
   return (
-    <Draggable draggableId={item.todoId.toString()} index={index}>
+    <Draggable draggableId={item.todoId!.toString()} index={index}>
       {(provided) => {
         return (
           <DragItem
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}>
-            {type === TodoListType.BOARD ? <TodoCard item={item} /> : <TodoListCard item={item} />}
+            {type === TodoListType.BOARD ? (
+              <TodoCard item={item} onDetail={onDetail} />
+            ) : (
+              <TodoListCard item={item} onDetail={onDetail} />
+            )}
           </DragItem>
         );
       }}

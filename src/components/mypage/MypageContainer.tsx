@@ -1,5 +1,4 @@
 import { userAPI } from 'apis/user';
-import { MypageTemplate } from 'components';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import Select from 'components/common/Select';
@@ -8,6 +7,7 @@ import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { IUserState, userState } from 'store/user/user';
 import { gender } from 'types/user.types';
+import MypageTemplate from './MypageTemplate';
 
 const MypageContainer = () => {
   const modifyUser = useMutation(

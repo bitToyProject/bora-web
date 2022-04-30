@@ -1,19 +1,20 @@
-import { TodoTemplate } from 'components';
-import React, { useEffect, useState } from 'react';
-import TodoTypeButtonList from './TodoTypeButtonList';
-import TodoListContainer from './TodoListContainer';
-import { useQuery } from 'react-query';
-import { TodoAPI } from 'apis/todo';
-import { useRecoilState } from 'recoil';
-import { ITodoColumn } from 'types/todo.types';
-import { todoColumn, todoType } from 'store/todo/todo';
+import { APITodoListTest } from 'apis/todo';
+import MultipleModal from 'components/common/modal/MultipleModal';
 import { TodoListType } from 'constants/todo';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { todoColumn, todoType } from 'store/todo/todo';
 import { IGetParameter } from 'types/common.types';
-import MutipleModal from 'components/common/modal/MutipleModal';
+import { ITodo, ITodoColumn } from 'types/todo.types';
+import TodoModal from './modal/TodoModal';
+import TodoListContainer from './TodoListContainer';
+import TodoTemplate from './TodoTemplate';
+import TodoTypeButtonList from './TodoTypeButtonList';
 
 const TodoContainer = () => {
   const { isLoading, data } = useQuery('todo-list', async () => {
-    return await TodoAPI.get.list(parameter);
+    return APITodoListTest();
   });
 
   const initialParams: IGetParameter = {
@@ -22,12 +23,29 @@ const TodoContainer = () => {
     type: TodoListType.BOARD,
   };
 
+  const initialTodo: ITodo = {
+    assignee: '',
+    description: '',
+    done: false,
+    nickname: '',
+    point: 0,
+    priority: 0,
+    regDate: '',
+    start: '',
+    end: '',
+    title: '',
+    todoType: '',
+    todoId: 0,
+  };
+
   const [columns, setColumns] = useRecoilState<ITodoColumn>(todoColumn);
   const [type, setType] = useRecoilState<string>(todoType);
   const [parameter, setParameter] = useState(initialParams);
   const [showTodoModal, setShowTodoModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<ITodo | null>(initialTodo);
 
-  const todoItems = data ? data.todoList : [];
+  //const todoItems = data ? data.todoList : [];
+  const todoItems = data ? data : [];
 
   const handleClickTodoListType = (item: { name: string; value: string }) => {
     setType(item.value);
@@ -75,6 +93,16 @@ const TodoContainer = () => {
     setShowTodoModal(true);
   };
 
+  const handleClickDetail = (item: ITodo) => {
+    setSelectedItem(item);
+    setShowTodoModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowTodoModal(false);
+    setSelectedItem(null);
+  };
+
   if (isLoading) {
     return <>로딩</>;
   }
@@ -108,12 +136,17 @@ const TodoContainer = () => {
             items={todoItems}
             columns={columns}
             onDrag={setColumns}
+            onDetail={handleClickDetail}
             onClick={handleClickTodoModal}
           />
         }
       />
 
-      {showTodoModal && <MutipleModal title={'할일 등록'} />}
+      {showTodoModal && (
+        <MultipleModal text={type} onClose={handleCloseModal}>
+          <TodoModal item={selectedItem} />
+        </MultipleModal>
+      )}
     </>
   );
 };

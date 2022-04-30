@@ -21,6 +21,7 @@ const CloseButton = forwardRef((props: Props, ref: any) => {
 export default CloseButton;
 
 const Button = styled.div<{ backgroudColor?: string }>`
+  border-radius: 10px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;

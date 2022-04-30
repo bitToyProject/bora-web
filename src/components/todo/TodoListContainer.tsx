@@ -10,14 +10,15 @@ interface Props {
   type: string;
   columns: ITodoColumn;
   onDrag: Dispatch<SetStateAction<ITodoColumn>>;
+  onDetail: (item: ITodo) => void;
   onClick: () => void;
 }
 
-const TodoListContainer = ({ items, type, columns, onDrag, onClick }: Props) => {
+const TodoListContainer = ({ items, type, columns, onDrag, onDetail, onClick }: Props) => {
   if (type === TodoListType.LIST) {
     return (
       <TodoListTypeContainerBlock>
-        <TodoBoardContainer columns={columns} onDrag={onDrag} />;
+        <TodoBoardContainer columns={columns} onDetail={onDetail} onDrag={onDrag} />;
       </TodoListTypeContainerBlock>
     );
   }
@@ -28,7 +29,7 @@ const TodoListContainer = ({ items, type, columns, onDrag, onClick }: Props) => 
 
   return (
     <TodoBoardContainerBlock>
-      <TodoBoardContainer columns={columns} onDrag={onDrag} onClick={onClick} />;
+      <TodoBoardContainer columns={columns} onDrag={onDrag} onDetail={onDetail} onClick={onClick} />
     </TodoBoardContainerBlock>
   );
 };
@@ -41,4 +42,9 @@ const TodoBoardContainerBlock = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
+
+  @media (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
