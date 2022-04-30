@@ -29,15 +29,17 @@ const HomeContainer = () => {
   }, [location.pathname]);
 
   return (
-    <Wrapper>
-      {toggle ? (
-        <Modal activeBtn={true} onCloseModal={onCloseModal}>
-          <Outlet />
-        </Modal>
-      ) : (
-        <div onClick={onToggleTodoModal}>show todo</div>
-      )}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {toggle ? (
+          <Modal activeBtn={true} onCloseModal={onCloseModal}>
+            <Outlet />
+          </Modal>
+        ) : (
+          <button onClick={onToggleTodoModal}>show todo</button>
+        )}
+      </Wrapper>
+    </>
   );
 };
 

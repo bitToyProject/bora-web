@@ -18,5 +18,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
   },
+  
   "include": [ "**/*.ts", "**/*.tsx", "src/styles/GlobalStyles.tss"]
 }
