@@ -7,3 +7,10 @@ export interface IPagination {
   prev: boolean;
   next: boolean;
 }
+
+export interface IGetParameter {
+  keyword: string;
+  page: number;
+  size?: number;
+  type: string;
+}

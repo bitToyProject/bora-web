@@ -5,9 +5,10 @@ interface Props {
   text: string;
   color: string;
   total?: number;
+  onClick?: () => void;
 }
 
-const TodoBoardHeader = ({ text, color, total }: Props) => {
+const TodoBoardHeader = ({ text, color, total, onClick }: Props) => {
   return (
     <TodoHeaderBlock color={color}>
       <Left>
@@ -19,7 +20,7 @@ const TodoBoardHeader = ({ text, color, total }: Props) => {
       </Left>
 
       <Right>
-        <PlusButton>+</PlusButton>
+        <PlusButton onClick={onClick}>+</PlusButton>
       </Right>
     </TodoHeaderBlock>
   );

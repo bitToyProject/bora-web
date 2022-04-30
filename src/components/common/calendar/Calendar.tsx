@@ -14,6 +14,8 @@ const Calendar = () => {
   const firstDateIndex = thisDate.indexOf(1);
   const lastDateIndex = thisDate.lastIndexOf(endDate);
 
+  // TODO : 전역 상태로 스케쥴 가져오기
+
   useEffect(() => {
     const prevDate = new Date(thisYear, thisMonth - 1, 0).getDate();
     const prevDay = new Date(thisYear, thisMonth - 1, 0).getDay();
@@ -89,6 +91,23 @@ const Calendar = () => {
             );
           })}
         </Days>
+        <Todo>할일</Todo>
+
+        {/* {schedules
+          .filter((schedule) => schedule.date.substr(0, 10) === dateKey)
+          .sort()
+          .map((schedule) => {
+            return (
+              <div
+                style={scheduleStyle}
+                className={schedule.completed}
+                key={schedule.desc}
+                onClick={openModal}>
+                {schedule.desc}
+                <Modal isOpen={isModalOpen} close={closeModal} />
+              </div>
+            );
+          })} */}
       </CalendarDate>
     </CalendarBlock>
   );
@@ -154,4 +173,19 @@ const Day = styled.span<{ block?: boolean }>`
   flex-direction: row;
   padding: 15px 0 0 15px;
   color: ${(props) => (props.block ? '#000' : props.theme.colors.gray)};
+`;
+
+const Todo = styled.span`
+  height: 20%;
+  width: 100%;
+  min-height: 11px;
+  background-color: #112667;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff;
+  padding: 1px;
+  margin: 0;
+  font-size: 0.5em;
+  cursor: pointer;
 `;

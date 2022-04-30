@@ -10,9 +10,10 @@ interface Props {
   type: string;
   columns: ITodoColumn;
   onDrag: Dispatch<SetStateAction<ITodoColumn>>;
+  onClick: () => void;
 }
 
-const TodoListContainer = ({ items, type, columns, onDrag }: Props) => {
+const TodoListContainer = ({ items, type, columns, onDrag, onClick }: Props) => {
   if (type === TodoListType.LIST) {
     return (
       <TodoListTypeContainerBlock>
@@ -22,12 +23,12 @@ const TodoListContainer = ({ items, type, columns, onDrag }: Props) => {
   }
 
   if (type === TodoListType.CALENDAR) {
-    return <TodoCalendarContainer />;
+    return <TodoCalendarContainer items={items} />;
   }
 
   return (
     <TodoBoardContainerBlock>
-      <TodoBoardContainer columns={columns} onDrag={onDrag} />;
+      <TodoBoardContainer columns={columns} onDrag={onDrag} onClick={onClick} />;
     </TodoBoardContainerBlock>
   );
 };

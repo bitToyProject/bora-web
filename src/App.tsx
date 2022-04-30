@@ -16,17 +16,15 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={GlobalStyles} />
-      <Suspense fallback={<div> LOADING......</div>}>
-        <Routes>
-          <Route path="/" element={<HomeContainer />}>
-            <Route path="/todo" element={<TodoContainer />} />
-          </Route>
+      <Routes>
+        <Route path="/" element={<HomeContainer />}>
+          <Route path="/todo" element={<TodoContainer />} />
           <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
-          <Route path="/signup" element={<SignupContainer />} />
-          <Route path="/login" element={<LoginContainer />} />
-        </Routes>
-        <UserList />
-      </Suspense>
+        </Route>
+        <Route path="/signup" element={<SignupContainer />} />
+        <Route path="/login" element={<LoginContainer />} />
+      </Routes>
+      {/* <UserList /> */}
     </ThemeProvider>
   );
 };

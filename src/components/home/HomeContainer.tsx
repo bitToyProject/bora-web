@@ -11,12 +11,12 @@ const HomeContainer = () => {
   const onToggleTodoModal = useCallback(() => {
     setToggle((prev) => !prev);
     navigate('/todo');
-  }, []);
+  }, [navigate]);
 
   const onCloseModal = useCallback(() => {
     setToggle(false);
     navigate('/');
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (location.pathname === '/') {
