@@ -1,6 +1,7 @@
 import { TodoType } from 'constants/todo';
 import { atom } from 'recoil';
 import { IMoveTodoCard, ITodoColumn } from 'types/todo.types';
+import { TodoListType } from 'constants/todo';
 
 export const moveTodoState = atom<IMoveTodoCard[] | null>({
   key: 'todo',
@@ -31,4 +32,9 @@ export const todoColumn = atom<ITodoColumn>({
       items: [],
     },
   },
+});
+
+export const todoType = atom<string>({
+  key: 'todo-type',
+  default: TodoListType.BOARD,
 });
