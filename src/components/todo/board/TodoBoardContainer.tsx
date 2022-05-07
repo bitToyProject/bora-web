@@ -1,60 +1,16 @@
-import styled from '@emotion/styled';
-import { TodoType } from 'constants/todo';
-import React, { useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { useRecoilState } from 'recoil';
-import { todoColumn } from 'store/todo/todo';
 import { ITodo, ITodoColumn } from 'types/todo.types';
 import TodoBoardList from './TodoBoardList';
 
 interface Props {
-  items: ITodo[];
+  columns: ITodoColumn;
+  onDrag: Dispatch<SetStateAction<ITodoColumn>>;
+  onDetail: (item: ITodo) => void;
+  onClick?: () => void;
 }
 
-const TodoBoardContainer = ({ items }: Props) => {
-  const [columns, setColumns] = useRecoilState<ITodoColumn>(todoColumn);
-
-  const todo = items.filter((item) => {
-    return item.todoType === columns.todo.name;
-  });
-
-  const inprogress = items.filter((item) => {
-    return item.todoType === columns.inprogress.name;
-  });
-
-  const review = items.filter((item) => {
-    return item.todoType === columns.review.name;
-  });
-
-  const done = items.filter((item) => {
-    return item.todoType === columns.done.name;
-  });
-
-  useEffect(() => {
-    setColumns({
-      todo: {
-        name: TodoType.TODO,
-        color: '#897cf8',
-        items: todo,
-      },
-      inprogress: {
-        name: TodoType.INPROGRESS,
-        color: '#fc587e',
-        items: inprogress,
-      },
-      review: {
-        name: TodoType.REVIEW,
-        color: '#ffd32d',
-        items: review,
-      },
-      done: {
-        name: TodoType.DONE,
-        color: '#7bc95f',
-        items: done,
-      },
-    });
-  }, []);
-
+const TodoBoardContainer = ({ columns, onDrag, onClick, onDetail }: Props) => {
   const handleChangeDrag = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -71,7 +27,7 @@ const TodoBoardContainer = ({ items }: Props) => {
 
       destinationItems.splice(destination.index, 0, removed);
 
-      setColumns({
+      onDrag({
         ...columns,
         [source.droppableId.toLowerCase()]: {
           ...sourceColumn,
@@ -86,27 +42,21 @@ const TodoBoardContainer = ({ items }: Props) => {
   };
 
   return (
-    <TodoDragListBlock>
-      <DragDropContext onDragEnd={handleChangeDrag}>
-        {Object.entries(columns).map(([name, column], index: number) => {
-          return (
-            <TodoBoardList
-              key={`${column.name}-${index}`}
-              text={column.name}
-              color={column.color}
-              items={column.items}
-            />
-          );
-        })}
-      </DragDropContext>
-    </TodoDragListBlock>
+    <DragDropContext onDragEnd={handleChangeDrag}>
+      {Object.entries(columns).map(([, column], index: number) => {
+        return (
+          <TodoBoardList
+            key={`${column.name}-${index}`}
+            text={column.name}
+            color={column.color}
+            items={column.items}
+            onClick={onClick}
+            onDetail={onDetail}
+          />
+        );
+      })}
+    </DragDropContext>
   );
 };
 
 export default TodoBoardContainer;
-
-const TodoDragListBlock = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
-`;

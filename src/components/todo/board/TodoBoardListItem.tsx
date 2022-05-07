@@ -1,24 +1,35 @@
 import styled from '@emotion/styled';
+import { TodoListType } from 'constants/todo';
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { useRecoilValue } from 'recoil';
+import { todoType } from 'store/todo/todo';
 import { ITodo } from 'types/todo.types';
+import TodoListCard from '../list/TodoListCard';
 import TodoCard from './TodoCard';
 
 interface Props {
   item: ITodo;
   index: number;
+  onDetail?: (item: ITodo) => void;
 }
 
-const TodoBoardListItem = ({ item, index }: Props) => {
+const TodoBoardListItem = ({ item, index, onDetail }: Props) => {
+  const type = useRecoilValue(todoType);
+
   return (
-    <Draggable draggableId={item.todoId.toString()} index={index}>
+    <Draggable draggableId={item.todoId!.toString()} index={index}>
       {(provided) => {
         return (
           <DragItem
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}>
-            <TodoCard item={item} />
+            {type === TodoListType.BOARD ? (
+              <TodoCard item={item} onDetail={onDetail} />
+            ) : (
+              <TodoListCard item={item} onDetail={onDetail} />
+            )}
           </DragItem>
         );
       }}

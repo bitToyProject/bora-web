@@ -11,12 +11,12 @@ const HomeContainer = () => {
   const onToggleTodoModal = useCallback(() => {
     setToggle((prev) => !prev);
     navigate('/todo');
-  }, []);
+  }, [navigate]);
 
   const onCloseModal = useCallback(() => {
     setToggle(false);
     navigate('/');
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -29,16 +29,17 @@ const HomeContainer = () => {
   }, [location.pathname]);
 
   return (
-    <Wrapper>
-      <div>asdas</div>
-      {toggle ? (
-        <Modal activeBtn={true} onCloseModal={onCloseModal}>
-          <Outlet />
-        </Modal>
-      ) : (
-        <div onClick={onToggleTodoModal}>show todo</div>
-      )}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {toggle ? (
+          <Modal activeBtn={true} onCloseModal={onCloseModal}>
+            <Outlet />
+          </Modal>
+        ) : (
+          <button onClick={onToggleTodoModal}>show todo</button>
+        )}
+      </Wrapper>
+    </>
   );
 };
 

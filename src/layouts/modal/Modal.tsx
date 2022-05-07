@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
-import { relative } from 'path';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { IoClose } from 'react-icons/io5';
+import React, { useEffect, useRef, useState } from 'react';
+import CloseButton from 'components/common/button/CloseButton';
 
 interface IModalProps {
   children: any;
@@ -23,13 +21,7 @@ export const Modal = ({ children, onCloseModal, activeBtn }: IModalProps) => {
   return (
     <Wrapper>
       <ContentLayout>
-        {activeBtn && (
-          <CloseButton ref={btnRef}>
-            <span onClick={onCloseModal}>
-              <IoClose fontSize={27} />
-            </span>
-          </CloseButton>
-        )}
+        {activeBtn && <CloseButton ref={btnRef} backgroudColor="#fff" onClose={onCloseModal} />}
         <Content btnHeight={btnHeight}>{children}</Content>
       </ContentLayout>
       <Outlayer onClick={onCloseModal} />
@@ -46,24 +38,6 @@ const Wrapper = styled.div`
   height: 90vh;
   width: 90vw;
   z-index: 2;
-`;
-
-const CloseButton = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  padding: 8px 15px;
-  background-color: #fff;
-
-  & > span {
-    transition: transform 0.17s;
-
-    cursor: pointer;
-  }
-
-  & > span:hover {
-    transform: rotate(-45deg);
-  }
 `;
 
 const ContentLayout = styled.div`
