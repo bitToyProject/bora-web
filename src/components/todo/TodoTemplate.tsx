@@ -29,6 +29,7 @@ const TodoTemplateBlock = styled.div`
   background-color: #fff;
   width: 100%;
   height: 100%;
+  position: relative;
   border-radius: 0 0 8px 8px;
 `;
 
@@ -36,7 +37,9 @@ const Main = styled.div`
   position: absolute;
   left: 15%;
   width: 85%;
+  height: 100%;
   padding: 11px 24px;
+  overflow: scroll;
 `;
 
 const Container = styled.div`

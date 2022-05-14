@@ -54,6 +54,8 @@ const ContentLayout = styled.div`
 `;
 
 const Content = styled.div<{ btnHeight?: number }>`
+  width: 100%;
+  height: 100%;
   height: calc(100% - ${({ btnHeight }) => btnHeight}px);
 `;
 
@@ -62,9 +64,11 @@ const Outlayer = styled.div`
   top: 0;
   left: 0;
   z-index: -1;
-  background-color: rgb(0, 0, 0, 0.1);
+  background-image: url('/img/background.png');
+  background-size: cover;
   height: 100vh;
   width: 100vw;
+  opacity: 0.5;
 `;
 
 export default Modal;

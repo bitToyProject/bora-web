@@ -6,7 +6,7 @@ import TodoBoardContainer from './board/TodoBoardContainer';
 import TodoCalendarContainer from './calendaer/TodoCalendarContainer';
 
 interface Props {
-  items?: ITodo[];
+  items: ITodo[];
   type: string;
   columns: ITodoColumn;
   onDrag: Dispatch<SetStateAction<ITodoColumn>>;
@@ -42,12 +42,15 @@ const TodoListContainer = ({ items, type, columns, onDrag, onDetail, onClick }: 
 
 export default TodoListContainer;
 
-const TodoListTypeContainerBlock = styled.div``;
+const TodoListTypeContainerBlock = styled.div`
+  height: 100%;
+`;
 
 const TodoBoardContainerBlock = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
+  overflow: hidden;
 
   @media (max-width: 1100px) {
     display: flex;

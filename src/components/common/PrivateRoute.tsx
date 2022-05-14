@@ -1,9 +1,7 @@
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import { userAPI } from 'apis/user';
-import LoginContainer from 'components/login/LoginContainer';
 import { ACCESS_TOKEN } from 'constants/token';
-import React, { Children, useCallback } from 'react';
-import { Navigate, Route } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userState } from 'store/user/user';
 import { storage } from 'utils/storage';

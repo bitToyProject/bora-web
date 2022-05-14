@@ -3,10 +3,10 @@ import React from 'react';
 import { ITodo } from 'types/todo.types';
 
 interface Props {
-  items?: ITodo[];
+  items: ITodo[];
 }
 const TodoCalendarContainer = ({ items }: Props) => {
-  return <Calendar />;
+  return <Calendar items={items} />;
 };
 
 export default TodoCalendarContainer;

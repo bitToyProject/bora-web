@@ -1,20 +1,39 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
-import { getMonthStartEndDate, getNewDateObj } from 'utils/date';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ITodo } from 'types/todo.types';
+import { getDiffDays, getMonthStartEndDate, getNewDateObj } from 'utils/date';
+import { replaceZeroToBlank } from 'utils/replace';
 import { ArrowIcon } from '../icons/ArrowIcons';
 
-const Calendar = () => {
+interface Props {
+  items: ITodo[];
+}
+
+const Calendar = ({ items }: Props) => {
   const { year, month } = getNewDateObj(new Date());
 
   const [thisYear, setThisYear] = useState(Number(year));
   const [thisMonth, setThisMonth] = useState(Number(month));
   const [thisDate, setThisDate] = useState<number[]>([]);
+  const [schedules, setSchedules] = useState<ITodo[] | null>(null);
 
   const { endDate, endDay } = getMonthStartEndDate(new Date(thisYear, thisMonth, 1));
   const firstDateIndex = thisDate.indexOf(1);
   const lastDateIndex = thisDate.lastIndexOf(endDate);
 
-  // TODO : 전역 상태로 스케쥴 가져오기
+  const checkThisMonthSchedules = useCallback(() => {
+    const isScheduled = items.filter((item) => {
+      const schedulesYear = Number(item.start.substr(0, 4));
+      const schedulesMonth = Number(replaceZeroToBlank(item.start.substr(5, 2)));
+      return schedulesYear === thisYear && schedulesMonth === thisMonth;
+    });
+
+    if (!isScheduled) {
+      return;
+    }
+
+    setSchedules(isScheduled);
+  }, [items, thisMonth, thisYear]);
 
   useEffect(() => {
     const prevDate = new Date(thisYear, thisMonth - 1, 0).getDate();
@@ -35,7 +54,8 @@ const Calendar = () => {
     }
 
     setThisDate(CalendarPrevDate.concat(dates, CalendarNextDate));
-  }, [thisMonth, thisYear, endDate, endDay]);
+    checkThisMonthSchedules();
+  }, [thisMonth, thisYear, endDate, endDay, checkThisMonthSchedules]);
 
   const handleClickPrevMonth = () => {
     if (thisMonth !== 1) {
@@ -45,6 +65,7 @@ const Calendar = () => {
       setThisYear(thisYear - 1);
     }
     setThisDate([]);
+    setSchedules(null);
   };
 
   const handleClickNextMonth = () => {
@@ -55,6 +76,25 @@ const Calendar = () => {
       setThisYear(thisYear + 1);
     }
     setThisDate([]);
+    setSchedules(null);
+  };
+
+  const getSchedulePeriod = (day: number, index: number) => {
+    if (!schedules) {
+      return;
+    }
+
+    const target = schedules.filter((schedule) => Number(schedule.start.substr(-2)) === day);
+
+    if (!target) {
+      return;
+    }
+
+    const test = target.map((item) => {
+      return getDiffDays(new Date(item.start), new Date(item.end)) + 1;
+    });
+
+    return test;
   };
 
   return (
@@ -87,27 +127,15 @@ const Calendar = () => {
                 key={`calendar-day-${i}`}
                 block={i >= firstDateIndex && i < lastDateIndex + 1 ? true : false}>
                 {day}
+                {schedules && getSchedulePeriod(day, i) && (
+                  <Todo bgColor={'orange'} width={100}>
+                    {schedules.map((schedule) => schedule.title)}
+                  </Todo>
+                )}
               </Day>
             );
           })}
         </Days>
-        <Todo>할일</Todo>
-
-        {/* {schedules
-          .filter((schedule) => schedule.date.substr(0, 10) === dateKey)
-          .sort()
-          .map((schedule) => {
-            return (
-              <div
-                style={scheduleStyle}
-                className={schedule.completed}
-                key={schedule.desc}
-                onClick={openModal}>
-                {schedule.desc}
-                <Modal isOpen={isModalOpen} close={closeModal} />
-              </div>
-            );
-          })} */}
       </CalendarDate>
     </CalendarBlock>
   );
@@ -169,23 +197,24 @@ const Days = styled.div`
 const Day = styled.span<{ block?: boolean }>`
   width: calc(100% / 7);
   height: 90px;
-  display: flex;
   flex-direction: row;
   padding: 15px 0 0 15px;
   color: ${(props) => (props.block ? '#000' : props.theme.colors.gray)};
 `;
 
-const Todo = styled.span`
+const Todo = styled.span<{ bgColor?: string; width?: number }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 20%;
-  width: 100%;
+  width: ${(props) => (props.width ? `calc(100% * ${props.width})` : '100%')};
   min-height: 11px;
-  background-color: #112667;
+  background-color: ${(props) => (props.bgColor ? props.bgColor : '#fff')};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #fff;
+  color: #000;
   padding: 1px;
-  margin: 0;
-  font-size: 0.5em;
+  font-size: 10px;
   cursor: pointer;
 `;

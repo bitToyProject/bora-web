@@ -20,3 +20,10 @@ export const getMonthStartEndDate = (newDate: Date) => {
 
   return { startDate, startDay, endDate, endDay };
 };
+
+export const getDiffDays = (date1: Date, date2: Date) => {
+  const startDate = date1.getTime();
+  const endDate = date2.getTime();
+  const diffDate = endDate - startDate;
+  return Math.abs(diffDate / (1000 * 3600 * 24));
+};

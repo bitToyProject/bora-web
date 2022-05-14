@@ -1,8 +1,7 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosPromise } from 'axios';
+import axios, { AxiosPromise } from 'axios';
 import { ACCESS_TOKEN } from 'constants/token';
 import { IUserState } from 'store/user/user';
 import { storage } from 'utils/storage';
-import { IGetUserResponse } from '../../types/user.types';
 
 export namespace userAPI {
   export const get = {

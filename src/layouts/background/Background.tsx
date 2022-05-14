@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
-import MapLabel from 'components/common/MapLabel';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 interface Props {
-  onToggle?: () => void;
+  onToggle?: (pathname: string) => void;
 }
 
 const Background = ({ onToggle }: Props) => {
+  const handleClickTodo = (e: MouseEvent) => {
+    onToggle && onToggle('/todo');
+  };
+
   return (
     <BackgroundBlock>
       <BackgroundMap src="/img/background.png" />
-      {onToggle && (
-        <Todo onClick={onToggle}>
-          <MapLabel text="할일" />
-        </Todo>
-      )}
+      <Todo onClick={handleClickTodo}>
+        <LabelWrapper>
+          <Label>할일</Label>
+        </LabelWrapper>
+      </Todo>
     </BackgroundBlock>
   );
 };
@@ -38,6 +41,21 @@ const Todo = styled.div`
   height: 200px;
   z-index: 5;
   top: 20px;
-  left: 260px;
+  left: 265px;
   cursor: pointer;
+`;
+
+const LabelWrapper = styled.div`
+  background-color: #000;
+  padding: 10px;
+  border-radius: 8px;
+  height: 40px;
+`;
+
+const Label = styled.span`
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

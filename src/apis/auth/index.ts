@@ -9,7 +9,6 @@ import {
   ISignupRequest,
   ISignupResponse,
 } from 'types/auth.types';
-import Cookies from 'universal-cookie/es6';
 import { storage } from 'utils/storage';
 
 interface IGetRequest<Q, P> {

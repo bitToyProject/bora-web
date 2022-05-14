@@ -1,8 +1,8 @@
-import { APITodoListTest } from 'apis/todo';
+import { TodoAPI } from 'apis/todo';
 import MultipleModal from 'components/common/modal/MultipleModal';
 import { TodoListType, TodoType } from 'constants/todo';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { todoColumn, todoType } from 'store/todo/todo';
 import { IGetParameter } from 'types/common.types';
@@ -43,28 +43,44 @@ const TodoContainer = () => {
   const { isLoading, data } = useQuery(
     'todo-list',
     async () => {
-      return APITodoListTest();
+      return TodoAPI.get.list(parameter);
     },
     {
       onSuccess: (data) => {
         setColumns({
           todo: {
             ...columns.todo,
-            items: data.filter((item) => item.todoType === TodoType.TODO),
+            items: data.todoList.filter((item) => item.todoType === TodoType.TODO),
           },
           inprogress: {
             ...columns.inprogress,
-            items: data.filter((item) => item.todoType === TodoType.INPROGRESS),
+            items: data.todoList.filter((item) => item.todoType === TodoType.INPROGRESS),
           },
           review: {
             ...columns.review,
-            items: data.filter((item) => item.todoType === TodoType.REVIEW),
+            items: data.todoList.filter((item) => item.todoType === TodoType.REVIEW),
           },
           done: {
             ...columns.done,
-            items: data.filter((item) => item.todoType === TodoType.DONE),
+            items: data.todoList.filter((item) => item.todoType === TodoType.DONE),
           },
         });
+      },
+    },
+  );
+
+  const todo = useMutation(
+    (value: ITodo) =>
+      TodoAPI.put.modify({
+        todoDto: { ...value },
+        todoId: value.todoId,
+      }),
+    {
+      onSuccess: (data, variables, contxt) => {
+        alert('사용자 정보가 변경 되었습니다.');
+      },
+      onError: (err) => {
+        console.log(err);
       },
     },
   );
@@ -85,6 +101,15 @@ const TodoContainer = () => {
 
   const handleCloseModal = () => {
     setShowTodoModal(false);
+  };
+
+  const handleSubmitTodo = () => {
+    setShowTodoModal(false);
+  };
+
+  const handleDrag = (item: ITodoColumn) => {
+    setColumns(item);
+    // todo.mutate(item);
   };
 
   if (isLoading) {
@@ -108,9 +133,9 @@ const TodoContainer = () => {
         List={
           <TodoListContainer
             type={type}
-            items={data}
+            items={data!.todoList}
             columns={columns}
-            onDrag={setColumns}
+            onDrag={handleDrag}
             onDetail={handleClickDetail}
             onClick={handleClickTodoModal}
           />

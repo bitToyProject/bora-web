@@ -9,10 +9,13 @@ const HomeContainer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const onToggleTodoModal = useCallback(() => {
-    setToggle((prev) => !prev);
-    navigate('/todo');
-  }, [navigate]);
+  const onToggleModal = useCallback(
+    (pathname: string) => {
+      setToggle((prev) => !prev);
+      navigate(pathname);
+    },
+    [navigate],
+  );
 
   const onCloseModal = useCallback(() => {
     setToggle(false);
@@ -37,7 +40,7 @@ const HomeContainer = () => {
             <Outlet />
           </Modal>
         ) : (
-          <Background onToggle={onToggleTodoModal} />
+          <Background onToggle={onToggleModal} />
         )}
       </Wrapper>
     </>

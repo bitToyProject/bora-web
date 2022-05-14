@@ -4,39 +4,6 @@ import { IGetParameter } from 'types/common.types';
 import { ITodo, ITodoResponse } from 'types/todo.types';
 import { storage } from 'utils/storage';
 
-export const APITodoListTest = (): ITodo[] => {
-  return [
-    {
-      assignee: null,
-      description: '설s명2',
-      done: null,
-      end: 'endto',
-      nickname: 'nick1',
-      point: 0,
-      priority: 23,
-      regDate: '22. 4. 9. 오후 1:55',
-      start: '스타트',
-      title: '정말 asfas',
-      todoId: 9,
-      todoType: 'TODO',
-    },
-    {
-      assignee: 'sda',
-      description: 'ss',
-      done: null,
-      end: '2022-03-28',
-      nickname: 'nick1',
-      point: 0,
-      priority: 1,
-      regDate: '22. 4. 2. 오후 2:31',
-      start: '2022-03-26',
-      title: '알고리즘 문제 풀기',
-      todoId: 3,
-      todoType: 'TODO',
-    },
-  ];
-};
-
 export namespace TodoAPI {
   export const get = {
     list: async (parameter: IGetParameter): Promise<ITodoResponse> => {
@@ -71,6 +38,16 @@ export namespace TodoAPI {
       todoId: number;
     }): Promise<AxiosPromise<boolean>> => {
       return axios.put('/todos/modify', parameter, {
+        headers: {
+          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
+        },
+      });
+    },
+  };
+
+  export const post = {
+    modify: async (parameter: ITodo): Promise<boolean> => {
+      return axios.post('/todos/save', parameter, {
         headers: {
           Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
         },
