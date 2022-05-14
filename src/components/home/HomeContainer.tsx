@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Modal from 'layouts/modal/Modal';
+import Background from 'layouts/background/Background';
 
 const HomeContainer = () => {
   const [toggle, setToggle] = useState(false);
@@ -36,7 +37,7 @@ const HomeContainer = () => {
             <Outlet />
           </Modal>
         ) : (
-          <button onClick={onToggleTodoModal}>show todo</button>
+          <Background onToggle={onToggleTodoModal} />
         )}
       </Wrapper>
     </>
