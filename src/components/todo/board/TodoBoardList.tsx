@@ -10,7 +10,7 @@ interface Props {
   color: string;
   items: ITodo[];
   onClick?: () => void;
-  onDetail?: (item: ITodo) => void;
+  onDetail: (item: ITodo) => void;
 }
 
 const TodoBoardList = ({ text, color, items, onClick, onDetail }: Props) => {

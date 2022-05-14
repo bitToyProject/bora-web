@@ -24,7 +24,7 @@ const LoginContainer = () => {
     },
     onError: (error: AxiosError) => {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.status);
+        alert(error.message);
       }
     },
   });

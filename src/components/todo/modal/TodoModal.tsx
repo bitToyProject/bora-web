@@ -2,7 +2,7 @@ import { TodoAPI } from 'apis/todo';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import { useInput } from 'hooks/useInput';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { ITodo } from 'types/todo.types';
 import TodoModalTemplate from './TodoModalTemplate';
@@ -23,7 +23,7 @@ const TodoModal = ({ item }: Props) => {
         alert('사용자 정보가 변경 되었습니다.');
       },
       onError: (err) => {
-        return;
+        console.log(err);
       },
     },
   );
@@ -43,35 +43,41 @@ const TodoModal = ({ item }: Props) => {
     todoId: 0,
   };
 
-  const [inputs, onChange] = useInput(initialTodo);
+  const [inputs, onChange] = useInput(item || initialTodo);
   const [showDetail, setShowDetail] = useState(true);
-
-  const disabled = !item;
 
   const handleSubmit = useCallback(async () => {
     const isOk = window.confirm('변경 하시겠습니까?');
 
     if (!isOk) {
-      return false;
+      return;
     }
 
-    console.log({ ...inputs });
-    await modify.mutate({ ...inputs });
+    modify.mutate(inputs);
   }, [modify, inputs]);
 
-  if (!item) {
-    return <>로딩중</>;
-  }
+  const onOpenToggle = useCallback(() => {
+    setShowDetail(true);
+  }, []);
+
+  const onCloseToggle = useCallback(() => {
+    setShowDetail(false);
+  }, []);
+
+  const onToggle = useCallback(() => {
+    setShowDetail((prev) => !prev);
+  }, []);
 
   return (
     <TodoModalTemplate
-      item={item}
+      item={inputs}
       show={showDetail}
-      onToggle={setShowDetail}
+      onToggle={onToggle}
+      onChange={onChange}
       TitleInput={
         <Input
           name="title"
-          // placeholder="제목을 입력해주세요"
+          placeholder="title"
           // disabled={!disabled}
           color="#fff"
           value={inputs.title}
@@ -81,7 +87,7 @@ const TodoModal = ({ item }: Props) => {
       DescriptionInput={
         <Input
           name="description"
-          // placeholder="설명을 입력해주세요"
+          placeholder="description"
           color="#fff"
           // disabled={!disabled}
           value={inputs.description}

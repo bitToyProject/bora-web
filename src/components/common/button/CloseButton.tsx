@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
-import React, { forwardRef } from 'react';
+import React, { CSSProperties, forwardRef } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 interface Props {
-  backgroudColor?: string;
   onClose?: () => void;
+  style?: CSSProperties;
 }
 
-const CloseButton = forwardRef((props: Props, ref: any) => {
-  const buttonColor = props.backgroudColor === '#fff' ? '#000' : '#fff';
+const CloseButton = forwardRef(({ onClose, style }: Props, ref: any) => {
+  const buttonColor = style?.backgroundColor === '#fff' ? '#000' : '#fff';
   return (
-    <Button ref={ref} backgroudColor={props.backgroudColor}>
-      <span onClick={props.onClose}>
+    <Button ref={ref} style={style}>
+      <span onClick={onClose}>
         <IoClose color={buttonColor} fontSize={27} />
       </span>
     </Button>
@@ -21,12 +21,11 @@ const CloseButton = forwardRef((props: Props, ref: any) => {
 export default CloseButton;
 
 const Button = styled.div<{ backgroudColor?: string }>`
-  border-radius: 10px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   padding: 8px 15px;
-  background-color: ${(props) => props.backgroudColor};
+  background-color: transparent;
 
   & > span {
     transition: transform 0.17s;

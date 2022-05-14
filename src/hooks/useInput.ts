@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 export const useInput = (initialState: any, validator?: (value: string) => boolean) => {
   const [input, setInput] = useState(initialState);

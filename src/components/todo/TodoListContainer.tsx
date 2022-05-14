@@ -6,7 +6,7 @@ import TodoBoardContainer from './board/TodoBoardContainer';
 import TodoCalendarContainer from './calendaer/TodoCalendarContainer';
 
 interface Props {
-  items: ITodo[];
+  items?: ITodo[];
   type: string;
   columns: ITodoColumn;
   onDrag: Dispatch<SetStateAction<ITodoColumn>>;
@@ -18,7 +18,13 @@ const TodoListContainer = ({ items, type, columns, onDrag, onDetail, onClick }: 
   if (type === TodoListType.LIST) {
     return (
       <TodoListTypeContainerBlock>
-        <TodoBoardContainer columns={columns} onDetail={onDetail} onDrag={onDrag} />;
+        <TodoBoardContainer
+          columns={columns}
+          onDetail={onDetail}
+          onClick={onClick}
+          onDrag={onDrag}
+        />
+        ;
       </TodoListTypeContainerBlock>
     );
   }

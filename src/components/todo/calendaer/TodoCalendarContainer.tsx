@@ -3,7 +3,7 @@ import React from 'react';
 import { ITodo } from 'types/todo.types';
 
 interface Props {
-  items: ITodo[];
+  items?: ITodo[];
 }
 const TodoCalendarContainer = ({ items }: Props) => {
   return <Calendar />;

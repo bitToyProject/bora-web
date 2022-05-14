@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import { ArrowIcon } from 'components/common/icons/ArrowIcons';
-import React, { Dispatch, ReactElement, SetStateAction } from 'react';
+import React, { ChangeEvent, Dispatch, ReactElement, SetStateAction } from 'react';
 import { ITodo } from 'types/todo.types';
 
 interface Props {
   item: ITodo;
   show: boolean;
-  onToggle: Dispatch<SetStateAction<boolean>>;
   TitleInput: ReactElement;
   DescriptionInput: ReactElement;
   SubmitButton: ReactElement;
-  onClick?: () => void;
+  onToggle: () => void;
+  onChange: (e: ChangeEvent) => void;
 }
 
 const TodoModalTemplate = ({
@@ -20,6 +20,7 @@ const TodoModalTemplate = ({
   TitleInput,
   DescriptionInput,
   SubmitButton,
+  onChange,
 }: Props) => {
   return (
     <TodoModalTemplateBlock>
@@ -31,7 +32,7 @@ const TodoModalTemplate = ({
       <Detail>
         <DetailTop>
           <span>Details</span>
-          <DetailIcon onClick={() => onToggle(!show)}>
+          <DetailIcon onClick={onToggle}>
             <ArrowIcon type="up" color="#fff" />
           </DetailIcon>
         </DetailTop>
@@ -39,27 +40,37 @@ const TodoModalTemplate = ({
         <DetailBottom show={show}>
           <DetailWrapper>
             <SubTitle>Due date</SubTitle>
-            <Description>{item.end}</Description>
+            <Description onChange={onChange} placeholder="-" value={item.end} name="end" />
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>Point</SubTitle>
-            <Description>{item.point}</Description>
+            <Description onChange={onChange} placeholder="-" value={item.point} name="point" />
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>Priority</SubTitle>
-            <Description>{item.priority}</Description>
+            <Description
+              onChange={onChange}
+              placeholder="-"
+              value={item.priority}
+              name="priority"
+            />
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>Assignee</SubTitle>
-            <Description>{item.assignee}</Description>
+            <Description
+              onChange={onChange}
+              placeholder="-"
+              value={item.assignee || ''}
+              name="asignee"
+            />
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>regdate</SubTitle>
-            <Description>{item.regDate}</Description>
+            <Description onChange={onChange} placeholder="-" value={item.regDate} name="regDate" />
           </DetailWrapper>
         </DetailBottom>
       </Detail>
@@ -111,7 +122,7 @@ const SubTitle = styled.span`
   flex: 1;
 `;
 
-const Description = styled.span`
+const Description = styled.input`
   flex: 2;
   color: #a8a8a8;
 `;

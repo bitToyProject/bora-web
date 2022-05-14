@@ -4,16 +4,11 @@ import { ITodo } from 'types/todo.types';
 
 interface Props {
   item: ITodo;
-  onDetail?: (item: ITodo) => void;
 }
 
-const TodoListCard = ({ item, onDetail }: Props) => {
-  const handleClick = () => {
-    onDetail && onDetail(item);
-  };
-
+const TodoListCard = ({ item }: Props) => {
   return (
-    <TodoListCardBlock onClick={handleClick}>
+    <TodoListCardBlock>
       <CardTitle>{item.title}</CardTitle>
       <Assignee>{item.nickname}</Assignee>
       <Period>

@@ -11,7 +11,7 @@ import TodoCard from './TodoCard';
 interface Props {
   item: ITodo;
   index: number;
-  onDetail?: (item: ITodo) => void;
+  onDetail: (item: ITodo) => void;
 }
 
 const TodoBoardListItem = ({ item, index, onDetail }: Props) => {
@@ -22,14 +22,11 @@ const TodoBoardListItem = ({ item, index, onDetail }: Props) => {
       {(provided) => {
         return (
           <DragItem
+            onClick={() => onDetail(item)}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}>
-            {type === TodoListType.BOARD ? (
-              <TodoCard item={item} onDetail={onDetail} />
-            ) : (
-              <TodoListCard item={item} onDetail={onDetail} />
-            )}
+            {type === TodoListType.BOARD ? <TodoCard item={item} /> : <TodoListCard item={item} />}
           </DragItem>
         );
       }}

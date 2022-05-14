@@ -21,7 +21,13 @@ export const Modal = ({ children, onCloseModal, activeBtn }: IModalProps) => {
   return (
     <Wrapper>
       <ContentLayout>
-        {activeBtn && <CloseButton ref={btnRef} backgroudColor="#fff" onClose={onCloseModal} />}
+        {activeBtn && (
+          <CloseButton
+            ref={btnRef}
+            style={{ backgroundColor: '#fff', borderRadius: '8px 8px 0 0' }}
+            onClose={onCloseModal}
+          />
+        )}
         <Content btnHeight={btnHeight}>{children}</Content>
       </ContentLayout>
       <Outlayer onClick={onCloseModal} />
@@ -34,15 +40,17 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 1px solid red;
   height: 90vh;
   width: 90vw;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   z-index: 2;
 `;
 
 const ContentLayout = styled.div`
   width: 100%;
   height: 100%;
+  border-radius: 8px;
 `;
 
 const Content = styled.div<{ btnHeight?: number }>`

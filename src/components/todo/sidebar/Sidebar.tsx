@@ -42,6 +42,7 @@ const Container = styled.div`
   top: 0;
   background-color: #fff;
   border-right: 1px solid #d9d9d9;
+  border-radius: 8px 0 0 8px;
 `;
 
 export const Logo = styled.div`
@@ -50,6 +51,7 @@ export const Logo = styled.div`
   text-align: center;
   font-size: 22px;
   font-weight: 700;
+  border-radius: 8px;
 `;
 
 export const Menus = styled.div`

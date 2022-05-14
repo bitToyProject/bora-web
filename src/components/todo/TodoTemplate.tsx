@@ -29,6 +29,7 @@ const TodoTemplateBlock = styled.div`
   background-color: #fff;
   width: 100%;
   height: 100%;
+  border-radius: 0 0 8px 8px;
 `;
 
 const Main = styled.div`
