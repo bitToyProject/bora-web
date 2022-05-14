@@ -13,10 +13,12 @@ import axios, { AxiosError } from 'axios';
 
 const LoginContainer = () => {
   const navigate = useNavigate();
+
   const [state, setValue] = useState<ILoginRequest>({ username: '', password: '' });
   const [_, setAuth] = useRecoilState(userState);
+
   const user = useMutation((loginValue: ILoginRequest) => authAPI.post.login(loginValue), {
-    onSuccess: (data, variables, contxt) => {
+    onSuccess: (data) => {
       storage.set(ACCESS_TOKEN, data.data.accessToken);
       storage.set(REFRESH_TOKEN, data.data.refreshToken);
       setAuth(data.data);
@@ -88,11 +90,11 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  width: 25%;
+  width: 330px;
+  background-color: #000;
+  border: 2px solid darkgray;
+  border-radius: 3px;
   margin: 0 auto;
-  border: 1px solid gray;
-  border-radius: 6px;
 `;
 
 const Header = styled.div`

@@ -20,4 +20,8 @@ export const GlobalStyles = css`
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
   }
+
+  body {
+    background-color: gray;
+  }
 `;
