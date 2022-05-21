@@ -63,7 +63,7 @@ const UserListContainer = () => {
       avatar: arvatar,
     },
   ];
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   return (
     <UserListWrapper>
@@ -74,4 +74,9 @@ const UserListContainer = () => {
 
 export default UserListContainer;
 
-const UserListWrapper = styled.div``;
+const UserListWrapper = styled.div`
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+  border: 2px solid ${({ theme }) => theme.colors.white};
+`;

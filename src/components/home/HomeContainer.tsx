@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Modal from 'layouts/modal/Modal';
 import Background from 'layouts/background/Background';
+import UserListContainer from 'components/userState/UserListContainer';
 
 const HomeContainer = () => {
   const [toggle, setToggle] = useState(false);
@@ -40,7 +41,10 @@ const HomeContainer = () => {
             <Outlet />
           </Modal>
         ) : (
-          <Background onToggle={onToggleModal} />
+          <>
+            <UserListContainer />
+            <Background onToggle={onToggleModal} />
+          </>
         )}
       </Wrapper>
     </>

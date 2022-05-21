@@ -12,12 +12,12 @@ const Background = ({ onToggle }: Props) => {
 
   return (
     <BackgroundBlock>
-      <BackgroundMap src="/img/background.png" />
-      <Todo onClick={handleClickTodo}>
-        <LabelWrapper>
+      <BackgroundInner>
+        <BackgroundMap src="/img/background.png" />
+        <Todo onClick={handleClickTodo}>
           <Label>할일</Label>
-        </LabelWrapper>
-      </Todo>
+        </Todo>
+      </BackgroundInner>
     </BackgroundBlock>
   );
 };
@@ -25,31 +25,30 @@ const Background = ({ onToggle }: Props) => {
 export default Background;
 
 const BackgroundBlock = styled.div`
+  position: fixed;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+const BackgroundInner = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
+  margin: 20rem;
 `;
 
 const BackgroundMap = styled.img`
-  width: 100%;
-  height: 100%;
+  border: 2mm ridge white;
+  min-width: 100%;
+  max-height: 100%;
 `;
 
 const Todo = styled.div`
   position: absolute;
-  width: 200px;
-  height: 200px;
-  z-index: 5;
-  top: 20px;
-  left: 265px;
+  width: 10rem;
+  height: 10rem;
+  top: 40px;
+  left: 120px;
   cursor: pointer;
-`;
-
-const LabelWrapper = styled.div`
-  background-color: #000;
-  padding: 10px;
-  border-radius: 8px;
-  height: 40px;
+  background-color: white;
 `;
 
 const Label = styled.span`

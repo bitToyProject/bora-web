@@ -15,7 +15,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={GlobalStyles} />
-      <UserListContainer />
       <Routes>
         <Route path="/" element={<HomeContainer />}>
           <Route path="/todo" element={<TodoContainer />} />

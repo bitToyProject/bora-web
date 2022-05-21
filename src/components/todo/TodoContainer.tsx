@@ -135,7 +135,7 @@ const TodoContainer = () => {
             type={type}
             items={data!.todoList}
             columns={columns}
-            onDrag={handleDrag}
+            onDrag={setColumns}
             onDetail={handleClickDetail}
             onClick={handleClickTodoModal}
           />

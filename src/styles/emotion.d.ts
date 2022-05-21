@@ -11,6 +11,7 @@ declare module '@emotion/react' {
       inprogress: string;
       review: string;
       done: string;
+      white: string;
     };
   }
 }

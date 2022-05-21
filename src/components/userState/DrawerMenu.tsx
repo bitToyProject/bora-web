@@ -34,17 +34,13 @@ const DrawerMenu = ({ userList, open, setOpen }: Props) => {
   return (
     <DrawerWrapper>
       <button onClick={handleOpen}>
-        <ArrowIcon type="left" size={22} />
+        <ArrowIcon type="left" size={22} color="#fff" />
       </button>
       <DrawerInner open={open}>
         <div>
           <button onClick={handleOpen}>
-            <ArrowIcon size={22} type="right" />
+            <ArrowIcon size={22} type="right" color="#fff" />
           </button>
-          <AiOutlineMessage />
-          <VscBell />
-          <VscBellDot />
-          <MdPersonAddAlt />
         </div>
         {children}
       </DrawerInner>
@@ -63,12 +59,14 @@ const DrawerWrapper = styled.div`
 
 const DrawerInner = styled.div<{ open: boolean }>`
   position: fixed;
-  display: ${({ open }) => (open ? 'absolute' : 'none')};
+  border: 2px solid ${({ theme }) => theme.colors.white};
+
+  display: ${({ open }) => (open ? 'flex-column' : 'none')};
   top: 0;
   right: 0;
   bottom: 0;
   padding: 2.5rem 1rem;
-  background: rgb(77, 58, 58, 0.8);
+  background: ${({ theme }) => theme.colors.background};
   max-height: 100vh;
   min-width: 18rem;
   overflow-y: scroll;
@@ -81,6 +79,8 @@ const UserListWrapper = styled.div<{ active: number }>`
   padding: 1.5rem 1rem;
   display: flex;
   flex-flow: column wrap;
+  color: ${({ theme }) => theme.colors.white};
+
   cursor: pointer;
   .user-info-box {
     display: flex;
