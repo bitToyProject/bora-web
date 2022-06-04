@@ -1,0 +1,15 @@
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+import styled from '@emotion/styled';
+import React from 'react';
+interface Props {
+  fontColor?: string;
+  bgColor?: string;
+  children: string | ReactJSXElement | ReactJSXElement[];
+}
+export const ColorButton = ({ children }: Props) => {
+  return <Button>{children}</Button>;
+};
+
+const Button = styled.button<{ fontColor?: string; bgColor?: string }>`
+  /* color: ; */
+`;

@@ -2,7 +2,6 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { authAPI } from 'apis/auth';
 import Input from 'components/common/Input';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/token';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
@@ -10,6 +9,8 @@ import { userState } from 'store/user/user';
 import { ILoginRequest } from 'types/auth.types';
 import { storage } from 'utils/storage';
 import axios, { AxiosError } from 'axios';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/token';
+import LabelLayout from 'layouts/wrapper/LabelLayout';
 
 const LoginContainer = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const LoginContainer = () => {
 
   const user = useMutation((loginValue: ILoginRequest) => authAPI.post.login(loginValue), {
     onSuccess: (data) => {
+      console.log(data);
       storage.set(ACCESS_TOKEN, data.data.accessToken);
       storage.set(REFRESH_TOKEN, data.data.refreshToken);
       setAuth(data.data);
@@ -49,37 +51,36 @@ const LoginContainer = () => {
     event.preventDefault();
     user.mutate(state);
   };
+  console.log('storage.get(ACCESS_TOKEN)', storage.get(ACCESS_TOKEN));
 
-  useEffect(() => {
-    if (storage.get(ACCESS_TOKEN)) {
-      navigate(-1);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (storage.get(ACCESS_TOKEN)) {
+  //     navigate(-1);
+  //   }
+  // }, []);
 
   return (
     <Form onSubmit={onSubmitForm}>
       <Header>Sign in to Bora</Header>
       <InputContainer>
-        <InputWrapper>
-          <label>username</label>
+        <LabelLayout label="username">
           <Input
             value={user.data?.data.username}
             onChange={onChangeUsername}
             placeholder="아이디를 입력해주세요."
-            style={{ height: 28 }}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <label>password</label>
+        </LabelLayout>
+        <LabelLayout label="password">
           <Input
             value={user.data?.data.username}
             onChange={onChangePassword}
             placeholder="비밀번호를 입력해주세요."
-            style={{ height: 28 }}
           />
-        </InputWrapper>
-        <Button>sign in</Button>
-        <Button onClick={() => navigate('/signup')}>sign Up</Button>
+        </LabelLayout>
+        <BtnBox>
+          <Button>sign in</Button>
+          <Button onClick={() => navigate('/signup')}>sign Up</Button>
+        </BtnBox>
       </InputContainer>
     </Form>
   );
@@ -90,11 +91,6 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 330px;
-  background-color: #000;
-  border: 2px solid darkgray;
-  border-radius: 3px;
-  margin: 0 auto;
 `;
 
 const Header = styled.div`
@@ -105,24 +101,15 @@ const Header = styled.div`
 `;
 
 const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  padding: 20px;
-
-  & > div:not(:last-child) {
-    margin-bottom: 20px;
-  }
+  padding: 0.5rem;
 `;
 
-const InputWrapper = styled.div`
-  width: 100%;
+const BtnBox = styled.div`
+  display: flex;
 `;
 
 const Button = styled.button`
-  width: 100%;
   border: none;
   color: #fff;
   border-radius: 4px;

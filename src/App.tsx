@@ -5,7 +5,6 @@ import LoginContainer from 'components/login/LoginContainer';
 import MypageContainer from 'components/mypage/MypageContainer';
 import { SignupContainer } from 'components/signup/index';
 import TodoContainer from 'components/todo/TodoContainer';
-import UserListContainer from 'components/userState/UserListContainer';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { GlobalStyles } from 'styles/GlobalStyles';

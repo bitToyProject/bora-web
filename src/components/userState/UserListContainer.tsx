@@ -36,7 +36,7 @@ const UserListContainer = () => {
     },
     {
       id: 3,
-      username: '김슬기',
+      username: '류슬기',
       nickName: '레인저',
       isActive: 1,
       avatar: arvatar,
@@ -46,20 +46,6 @@ const UserListContainer = () => {
       username: '최영은',
       nickName: '레인저',
       isActive: 1,
-      avatar: arvatar,
-    },
-    {
-      id: 5,
-      username: '노찬욱',
-      nickName: '레인저',
-      isActive: 0,
-      avatar: arvatar,
-    },
-    {
-      id: 6,
-      username: '여민정',
-      nickName: '헌터',
-      isActive: 0,
       avatar: arvatar,
     },
   ];

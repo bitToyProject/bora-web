@@ -15,23 +15,14 @@ export const Input = (props: Props) => {
 export default Input;
 
 const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-
   input {
-    height: 48px;
+    width: 100%;
+    height: 2rem;
     padding: 10px;
-    border: 1px solid ${({ theme }) => theme.colors.border};
+    border: 1px solid ${({ theme }) => theme.colors.gray};
     border-radius: 4px;
-    background-color: #000;
-    color: #fff;
 
-    :focus {
-      outline: none;
-    }
-
-    @media (min-width: 800px) {
-      max-width: 100%;
-    }
+    /* @media (min-width: 800px) {
+    } */
   }
 `;
