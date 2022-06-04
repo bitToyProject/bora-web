@@ -10,3 +10,10 @@ export const TodoType = {
   REVIEW: 'REVIEW',
   TODO: 'TODO',
 } as const;
+
+export const TodoPriority = {
+  HIGHEST: 'Highest',
+  MEDIUM: 'Medium',
+  LOW: 'Low',
+  LOWEST: 'Lowest',
+};

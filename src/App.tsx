@@ -21,6 +21,7 @@ const App = () => {
         <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
         <Route path="/signup" element={<SignupContainer />} />
         <Route path="/login" element={<LoginContainer />} />
+        <Route path="/home" element={<LoginContainer />} />
       </Routes>
     </ThemeProvider>
   );

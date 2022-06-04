@@ -1,9 +1,13 @@
 import { TodoAPI } from 'apis/todo';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
+import Select from 'components/common/Select';
+import Textarea from 'components/common/Textarea';
+import { TodoPriority } from 'constants/enum/todo';
 import { useInput } from 'hooks/useInput';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { LabelLayout } from 'layouts/wrapper/PageLayout';
+import React, { useCallback, useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { ITodo } from 'types/todo.types';
 import TodoModalTemplate from './TodoModalTemplate';
 
@@ -12,6 +16,8 @@ interface Props {
 }
 
 const TodoModal = ({ item }: Props) => {
+  const { data } = useQuery('team-list', TodoAPI.get.teamMember);
+
   const modify = useMutation(
     (value: ITodo) =>
       TodoAPI.put.modify({
@@ -28,21 +34,21 @@ const TodoModal = ({ item }: Props) => {
     },
   );
 
-  const submit = useMutation(
-    () => {
-      TodoAPI.post.save({
-        todoDto: { ...value },
-      });
-    },
-    {
-      onSuccess: () => {
-        alert('등록되었습니다.');
-      },
-      onError: (err) => {
-        console.log(err);
-      },
-    },
-  );
+  // const submit = useMutation(
+  //   () => {
+  //     TodoAPI.post.save({
+  //       todoDto: { ...value },
+  //     });
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       alert('등록되었습니다.');
+  //     },
+  //     onError: (err) => {
+  //       console.log(err);
+  //     },
+  //   },
+  // );
 
   const initialTodo: ITodo = {
     assignee: '',
@@ -74,40 +80,91 @@ const TodoModal = ({ item }: Props) => {
   }, [modify, inputs]);
 
   const handleSubmit = () => {
-    submit.mutate(inputs);
+    // submit.mutate(inputs);
   };
 
   const onToggle = useCallback(() => {
     setShowDetail((prev) => !prev);
   }, []);
 
+  if (!data) {
+    return <></>;
+  }
+
+  const teamMember = data.map((item) => {
+    return { name: item.name, value: item.name };
+  });
+
   return (
     <TodoModalTemplate
       show={showDetail}
       onToggle={onToggle}
       TitleInput={
-        <Input
-          name="title"
-          placeholder="제목을 입력해주세요"
-          value={inputs.title}
-          onChange={onChange}
-        />
+        <LabelLayout label="title">
+          <Input
+            name="title"
+            placeholder="제목을 입력해주세요"
+            value={inputs.title}
+            onChange={onChange}
+          />
+        </LabelLayout>
       }
       DescriptionInput={
-        <Input
-          name="description"
-          placeholder="설명을 입력해주세요"
-          value={inputs.description}
-          onChange={onChange}
-        />
+        <LabelLayout label="description">
+          <Textarea
+            name="description"
+            placeholder="설명을 입력해주세요"
+            value={inputs.description}
+            onChange={onChange}
+          />
+        </LabelLayout>
       }
-      DuedateInput={<Input name="end" placeholder="-" value={inputs.end} onChange={onChange} />}
-      PointInput={<Input name="point" placeholder="-" value={inputs.point} onChange={onChange} />}
+      DuedateInput={
+        <LabelLayout label="end">
+          <Input name="end" placeholder="-" value={inputs.end} onChange={onChange} />
+        </LabelLayout>
+      }
+      PointInput={
+        <LabelLayout label="point">
+          <Input name="point" placeholder="-" value={inputs.point} onChange={onChange} />
+        </LabelLayout>
+      }
       PriorityInput={
-        <Input name="priority" placeholder="-" value={inputs.priority} onChange={onChange} />
+        <LabelLayout label="priority">
+          <Select
+            name="priority"
+            options={[
+              {
+                name: TodoPriority.HIGHEST,
+                value: TodoPriority.HIGHEST,
+              },
+              {
+                name: TodoPriority.MEDIUM,
+                value: TodoPriority.MEDIUM,
+              },
+              {
+                name: TodoPriority.LOW,
+                value: TodoPriority.LOW,
+              },
+              {
+                name: TodoPriority.LOWEST,
+                value: TodoPriority.LOWEST,
+              },
+            ]}
+            value={inputs.priority}
+            onChange={onChange}
+          />
+        </LabelLayout>
       }
       AssigneeInput={
-        <Input name="assignee" placeholder="-" value={inputs.assignee} onChange={onChange} />
+        <LabelLayout label="assignee">
+          <Select
+            name="assignee"
+            options={teamMember}
+            value={inputs.assignee}
+            onChange={onChange}
+          />
+        </LabelLayout>
       }
       SubmitButton={<Button text="등록하기" onClick={handleEdit} />}
     />

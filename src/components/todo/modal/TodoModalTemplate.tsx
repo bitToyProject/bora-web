@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { ArrowIcon } from 'components/common/icons/ArrowIcons';
+import { ColLayout } from 'layouts/wrapper/PageLayout';
 import React, { ReactElement } from 'react';
 
 interface Props {
@@ -27,10 +28,8 @@ const TodoModalTemplate = ({
 }: Props) => {
   return (
     <TodoModalTemplateBlock>
-      <InputWrapper>
-        {TitleInput}
-        {DescriptionInput}
-      </InputWrapper>
+      <InputWrapper>{TitleInput}</InputWrapper>
+      <InputWrapper>{DescriptionInput}</InputWrapper>
 
       <Detail>
         <DetailTop>
@@ -41,25 +40,14 @@ const TodoModalTemplate = ({
         </DetailTop>
 
         <DetailBottom show={show}>
-          <DetailWrapper>
-            <SubTitle>Due date</SubTitle>
+          <ColLayout>
             {DuedateInput}
-          </DetailWrapper>
-
-          <DetailWrapper>
-            <SubTitle>Point</SubTitle>
             {PointInput}
-          </DetailWrapper>
-
-          <DetailWrapper>
-            <SubTitle>Priority</SubTitle>
+          </ColLayout>
+          <ColLayout>
             {PriorityInput}
-          </DetailWrapper>
-
-          <DetailWrapper>
-            <SubTitle>Assignee</SubTitle>
             {AssigneeInput}
-          </DetailWrapper>
+          </ColLayout>
         </DetailBottom>
       </Detail>
 
@@ -97,16 +85,6 @@ const DetailIcon = styled.div`
 
 const DetailBottom = styled.div<{ show?: boolean }>`
   display: ${(props) => (props.show ? 'block' : 'none')};
-`;
-
-const DetailWrapper = styled.div`
-  display: flex;
-  padding: 10px;
-  font-size: 14px;
-`;
-
-const SubTitle = styled.span`
-  flex: 1;
 `;
 
 const ButtonWrapper = styled.div`

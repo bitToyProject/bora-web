@@ -23,6 +23,30 @@ export namespace TodoAPI {
         next: false,
       };
     },
+    teamMember: async () => {
+      return [
+        {
+          id: 1,
+          name: '박재민',
+        },
+        {
+          id: 2,
+          name: '최영은',
+        },
+        {
+          id: 3,
+          name: '류슬기',
+        },
+        {
+          id: 4,
+          name: '오진욱',
+        },
+        {
+          id: 5,
+          name: '장해솔',
+        },
+      ];
+    },
   };
 
   export const put = {

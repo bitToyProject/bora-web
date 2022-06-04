@@ -35,7 +35,7 @@ export const ColLayout = ({
   elements = elements ?? [];
   columns = [...elements.map((v) => v.size), ...columns];
   return (
-    <ColsDiv columns={columns} {...props}>
+    <ColsDiv autoFill={autoFill} columns={columns} {...props}>
       {elements.map((e, i) => (
         <ColsIn key={i}>{e.component}</ColsIn>
       ))}
@@ -52,7 +52,7 @@ const ColsDiv = styled.div<{
 }>`
   display: grid;
   grid-template-columns: ${({ autoFill }) =>
-    `repeat (${autoFill ? `auto-fill` : `auto-fit`}, minmax(25%, 1fr))`};
+    `repeat(${autoFill ? `auto-fill` : `auto-fit`}, minmax(25%, 1fr))`};
 `;
 
 const ColsIn = styled.div`

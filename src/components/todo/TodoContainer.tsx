@@ -1,6 +1,6 @@
 import { TodoAPI } from 'apis/todo';
 import MultipleModal from 'components/common/modal/MultipleModal';
-import { TodoListType, TodoType } from 'constants/todo';
+import { TodoListType, TodoType } from 'constants/enum/todo';
 import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';

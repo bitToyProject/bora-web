@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { TodoListType } from 'constants/todo';
+import { TodoListType } from 'constants/enum/todo';
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useRecoilValue } from 'recoil';
