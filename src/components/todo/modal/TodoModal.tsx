@@ -19,7 +19,7 @@ const TodoModal = ({ item }: Props) => {
         todoId: item!.todoId,
       }),
     {
-      onSuccess: (data, variables, contxt) => {
+      onSuccess: () => {
         alert('사용자 정보가 변경 되었습니다.');
       },
       onError: (err) => {
@@ -28,14 +28,21 @@ const TodoModal = ({ item }: Props) => {
     },
   );
 
-  // const submit = useMutation(() => {}, {
-  //   onSuccess: () => {
-  //     alert('등록되었습니다.');
-  //   },
-  //   onError: (err) => {
-  //     console.log(err);
-  //   },
-  // });
+  const submit = useMutation(
+    () => {
+      TodoAPI.post.save({
+        todoDto: { ...value },
+      });
+    },
+    {
+      onSuccess: () => {
+        alert('등록되었습니다.');
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    },
+  );
 
   const initialTodo: ITodo = {
     assignee: '',
@@ -54,8 +61,9 @@ const TodoModal = ({ item }: Props) => {
 
   const [inputs, onChange] = useInput(item || initialTodo);
   const [showDetail, setShowDetail] = useState(true);
+  const [type, setType] = useState('');
 
-  const handleSubmit = useCallback(async () => {
+  const handleEdit = useCallback(async () => {
     const isOk = window.confirm('변경 하시겠습니까?');
 
     if (!isOk) {
@@ -65,13 +73,9 @@ const TodoModal = ({ item }: Props) => {
     modify.mutate(inputs);
   }, [modify, inputs]);
 
-  const onOpenToggle = useCallback(() => {
-    setShowDetail(true);
-  }, []);
-
-  const onCloseToggle = useCallback(() => {
-    setShowDetail(false);
-  }, []);
+  const handleSubmit = () => {
+    submit.mutate(inputs);
+  };
 
   const onToggle = useCallback(() => {
     setShowDetail((prev) => !prev);
@@ -79,16 +83,12 @@ const TodoModal = ({ item }: Props) => {
 
   return (
     <TodoModalTemplate
-      item={inputs}
       show={showDetail}
       onToggle={onToggle}
-      onChange={onChange}
       TitleInput={
         <Input
           name="title"
-          placeholder="title"
-          // disabled={!disabled}
-          color="#fff"
+          placeholder="제목을 입력해주세요"
           value={inputs.title}
           onChange={onChange}
         />
@@ -96,14 +96,20 @@ const TodoModal = ({ item }: Props) => {
       DescriptionInput={
         <Input
           name="description"
-          placeholder="description"
-          color="#fff"
-          // disabled={!disabled}
+          placeholder="설명을 입력해주세요"
           value={inputs.description}
           onChange={onChange}
         />
       }
-      SubmitButton={<Button text="등록하기" onClick={handleSubmit} />}
+      DuedateInput={<Input name="end" placeholder="-" value={inputs.end} onChange={onChange} />}
+      PointInput={<Input name="point" placeholder="-" value={inputs.point} onChange={onChange} />}
+      PriorityInput={
+        <Input name="priority" placeholder="-" value={inputs.priority} onChange={onChange} />
+      }
+      AssigneeInput={
+        <Input name="assignee" placeholder="-" value={inputs.assignee} onChange={onChange} />
+      }
+      SubmitButton={<Button text="등록하기" onClick={handleEdit} />}
     />
   );
 };

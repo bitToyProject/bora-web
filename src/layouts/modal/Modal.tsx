@@ -24,7 +24,7 @@ export const Modal = ({ children, onCloseModal, activeBtn }: IModalProps) => {
         {activeBtn && (
           <CloseButton
             ref={btnRef}
-            style={{ backgroundColor: '#fff', borderRadius: '8px 8px 0 0' }}
+            style={{ backgroundColor: '#000', borderRadius: '8px 8px 0 0' }}
             onClose={onCloseModal}
           />
         )}

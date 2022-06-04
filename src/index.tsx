@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { END_POINT } from 'constants/url';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -7,8 +5,6 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import App from './App';
-
-axios.defaults.baseURL = END_POINT;
 
 const queryClient = new QueryClient();
 

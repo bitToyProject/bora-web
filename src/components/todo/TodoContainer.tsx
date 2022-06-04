@@ -41,9 +41,9 @@ const TodoContainer = () => {
   const [selectedItem, setSelectedItem] = useState<ITodo | null>(initialTodo);
 
   const { isLoading, data } = useQuery(
-    'todo-list',
+    'todo-list-page',
     async () => {
-      return TodoAPI.get.list(parameter);
+      return TodoAPI.get.listPage(parameter);
     },
     {
       onSuccess: (data) => {

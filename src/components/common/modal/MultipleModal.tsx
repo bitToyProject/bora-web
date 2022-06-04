@@ -12,6 +12,7 @@ const MultipleModal = ({ children, text, onClose, cleanup }: PropsWithChildren<P
   useEffect(() => {
     return cleanup;
   }, []);
+
   return (
     <MutipleModalBlock>
       <CloseButton onClose={onClose} />
@@ -30,8 +31,8 @@ export const MutipleModalBlock = styled.div`
   top: 50%;
   left: 50%;
   border-radius: 8px;
-  width: 33%;
-  background-color: #000;
+  width: 60%;
+  background-color: #292a2d;
   transform: translate(-50%, -50%);
   z-index: 9;
 `;

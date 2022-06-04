@@ -1,26 +1,29 @@
 import styled from '@emotion/styled';
 import { ArrowIcon } from 'components/common/icons/ArrowIcons';
-import React, { ChangeEvent, Dispatch, ReactElement, SetStateAction } from 'react';
-import { ITodo } from 'types/todo.types';
+import React, { ReactElement } from 'react';
 
 interface Props {
-  item: ITodo;
   show: boolean;
+  onToggle: () => void;
   TitleInput: ReactElement;
   DescriptionInput: ReactElement;
   SubmitButton: ReactElement;
-  onToggle: () => void;
-  onChange: (e: ChangeEvent) => void;
+  DuedateInput: ReactElement;
+  PointInput: ReactElement;
+  PriorityInput: ReactElement;
+  AssigneeInput: ReactElement;
 }
 
 const TodoModalTemplate = ({
-  item,
   show,
   onToggle,
   TitleInput,
   DescriptionInput,
+  DuedateInput,
+  PointInput,
+  PriorityInput,
+  AssigneeInput,
   SubmitButton,
-  onChange,
 }: Props) => {
   return (
     <TodoModalTemplateBlock>
@@ -40,37 +43,22 @@ const TodoModalTemplate = ({
         <DetailBottom show={show}>
           <DetailWrapper>
             <SubTitle>Due date</SubTitle>
-            <Description onChange={onChange} placeholder="-" value={item.end} name="end" />
+            {DuedateInput}
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>Point</SubTitle>
-            <Description onChange={onChange} placeholder="-" value={item.point} name="point" />
+            {PointInput}
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>Priority</SubTitle>
-            <Description
-              onChange={onChange}
-              placeholder="-"
-              value={item.priority}
-              name="priority"
-            />
+            {PriorityInput}
           </DetailWrapper>
 
           <DetailWrapper>
             <SubTitle>Assignee</SubTitle>
-            <Description
-              onChange={onChange}
-              placeholder="-"
-              value={item.assignee || ''}
-              name="asignee"
-            />
-          </DetailWrapper>
-
-          <DetailWrapper>
-            <SubTitle>regdate</SubTitle>
-            <Description onChange={onChange} placeholder="-" value={item.regDate} name="regDate" />
+            {AssigneeInput}
           </DetailWrapper>
         </DetailBottom>
       </Detail>
@@ -86,7 +74,6 @@ const TodoModalTemplateBlock = styled.div``;
 
 const InputWrapper = styled.div`
   margin-bottom: 20px;
-  border: 1px solid #fff;
 `;
 
 const Detail = styled.div`
@@ -120,11 +107,6 @@ const DetailWrapper = styled.div`
 
 const SubTitle = styled.span`
   flex: 1;
-`;
-
-const Description = styled.input`
-  flex: 2;
-  color: #a8a8a8;
 `;
 
 const ButtonWrapper = styled.div`

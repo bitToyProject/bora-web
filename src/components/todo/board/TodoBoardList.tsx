@@ -43,5 +43,4 @@ export default TodoBoardList;
 const TodoDragListBlock = styled.div`
   padding: 10px 0;
   border-radius: 6px;
-  background-color: red;
 `;

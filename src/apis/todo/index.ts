@@ -1,57 +1,51 @@
-import axios, { AxiosPromise } from 'axios';
-import { ACCESS_TOKEN } from 'constants/token';
+import { getApi, postApi, putApi } from 'apis';
+import { responseSuccess } from 'apis/responseSuccess';
 import { IGetParameter } from 'types/common.types';
 import { ITodo, ITodoResponse } from 'types/todo.types';
-import { storage } from 'utils/storage';
 
 export namespace TodoAPI {
   export const get = {
-    list: async (parameter: IGetParameter): Promise<ITodoResponse> => {
-      try {
-        const res = await axios.get('/todos/list/pages', {
-          headers: {
-            Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
-          },
-        });
+    listPage: async (parameter: IGetParameter): Promise<ITodoResponse> => {
+      const res = await getApi('/todos/list/pages', parameter);
 
-        return res.data;
-      } catch (err) {
-        console.log(err);
-
-        return {
-          todoList: [],
-          totalPage: 0,
-          page: 0,
-          size: 0,
-          start: 0,
-          end: 0,
-          prev: false,
-          next: false,
-        };
+      if (responseSuccess(res)) {
+        return res;
       }
+
+      return {
+        todoList: [],
+        totalPage: 0,
+        page: 0,
+        size: 0,
+        start: 0,
+        end: 0,
+        prev: false,
+        next: false,
+      };
     },
   };
 
   export const put = {
-    modify: async (parameter: {
-      todoDto: ITodo;
-      todoId: number;
-    }): Promise<AxiosPromise<boolean>> => {
-      return axios.put('/todos/modify', parameter, {
-        headers: {
-          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
-        },
-      });
+    modify: async (parameter: { todoDto: ITodo; todoId: number }): Promise<boolean> => {
+      const res = await putApi('/todos/modify', parameter);
+
+      if (responseSuccess(res)) {
+        return true;
+      }
+
+      return false;
     },
   };
 
   export const post = {
-    modify: async (parameter: ITodo): Promise<boolean> => {
-      return axios.post('/todos/save', parameter, {
-        headers: {
-          Authorization: `Bearer ${storage.get(ACCESS_TOKEN)}`,
-        },
-      });
+    save: async (parameter: ITodo): Promise<boolean> => {
+      const res = await postApi('/todos/save', parameter);
+
+      if (responseSuccess(res)) {
+        return true;
+      }
+
+      return false;
     },
   };
 }

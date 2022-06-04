@@ -26,7 +26,7 @@ export default TodoTemplate;
 
 const TodoTemplateBlock = styled.div`
   display: flex;
-  background-color: #fff;
+  background-color: #000;
   width: 100%;
   height: 100%;
   position: relative;
