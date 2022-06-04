@@ -10,7 +10,7 @@ import { ILoginRequest } from 'types/auth.types';
 import { storage } from 'utils/storage';
 import axios, { AxiosError } from 'axios';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/token';
-import LabelLayout from 'layouts/wrapper/LabelLayout';
+import { LabelLayout } from 'layouts/wrapper/PageLayout';
 
 const LoginContainer = () => {
   const navigate = useNavigate();
