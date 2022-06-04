@@ -5,13 +5,11 @@ declare module '@emotion/react' {
     colors: {
       main: string;
       background: string;
-      gray: string;
-      border: string;
-      todo: string;
-      inprogress: string;
-      review: string;
-      done: string;
       white: string;
+      gray: string;
+      warning: string;
+      yellow: string;
+      green: string;
     };
   }
 }

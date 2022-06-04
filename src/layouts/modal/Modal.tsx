@@ -42,7 +42,6 @@ const Wrapper = styled.div`
   position: relative;
   height: 90vh;
   width: 90vw;
-
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   z-index: 2;
 `;
@@ -64,7 +63,7 @@ const Outlayer = styled.div`
   top: 0;
   left: 0;
   z-index: -1;
-  background-image: url('/img/background.png');
+  /* background-image: url('/img/background.png'); */
   background-size: cover;
   height: 100vh;
   width: 100vw;

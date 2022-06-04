@@ -2,14 +2,12 @@ import { Theme } from '@emotion/react';
 
 export const theme: Theme = {
   colors: {
-    main: 'hsl(244,57%,50%)',
-    background: 'hsl(0, 0%, 0%)',
+    main: 'hsl(215,76%,51%)',
+    background: `hsl(220,5%,12%)`,
     white: 'hsl(0,0%, 100%)',
-    gray: '#bdc2cb',
-    border: '#e0e3e6',
-    todo: '#897cf8',
-    inprogress: '#fc587e',
-    review: '#ffd32d',
-    done: '#7bc95f',
+    gray: 'hsl(225,5%,17%)',
+    warning: '#fc587e',
+    yellow: '#ffd32d',
+    green: '#7bc95f',
   },
 };

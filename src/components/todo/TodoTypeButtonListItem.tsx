@@ -32,6 +32,6 @@ const TodoButton = styled.div<{ active?: boolean }>`
   padding: 10px;
   background-color: #fff;
   border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
   color: ${(props) => (props.active ? props.theme.colors.main : props.theme.colors.gray)};
 `;

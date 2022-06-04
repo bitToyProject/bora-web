@@ -1,5 +1,5 @@
-import axios, { AxiosPromise } from 'axios';
 import { ACCESS_TOKEN } from 'constants/token';
+import axios, { AxiosPromise } from 'axios';
 import {
   ICheckUsernameResponse,
   ILoginRequest,
