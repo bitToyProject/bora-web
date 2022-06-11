@@ -1,7 +1,7 @@
-import { TodoType } from 'constants/todo';
+import { TodoType } from 'constants/enum/todo';
 import { atom } from 'recoil';
 import { IMoveTodoCard, ITodoColumn } from 'types/todo.types';
-import { TodoListType } from 'constants/todo';
+import { TodoListType } from 'constants/enum/todo';
 
 export const moveTodoState = atom<IMoveTodoCard[] | null>({
   key: 'todo',

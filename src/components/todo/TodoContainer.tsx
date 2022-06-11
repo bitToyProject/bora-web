@@ -1,6 +1,6 @@
 import { TodoAPI } from 'apis/todo';
 import MultipleModal from 'components/common/modal/MultipleModal';
-import { TodoListType, TodoType } from 'constants/todo';
+import { TodoListType, TodoType } from 'constants/enum/todo';
 import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
@@ -41,9 +41,9 @@ const TodoContainer = () => {
   const [selectedItem, setSelectedItem] = useState<ITodo | null>(initialTodo);
 
   const { isLoading, data } = useQuery(
-    'todo-list',
+    'todo-list-page',
     async () => {
-      return TodoAPI.get.list(parameter);
+      return TodoAPI.get.listPage(parameter);
     },
     {
       onSuccess: (data) => {

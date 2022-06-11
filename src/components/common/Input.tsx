@@ -17,12 +17,9 @@ export default Input;
 const InputWrapper = styled.div`
   input {
     width: 100%;
-    height: 2rem;
+    height: 2.25rem;
     padding: 10px;
     border: 1px solid ${({ theme }) => theme.colors.gray};
     border-radius: 4px;
-
-    /* @media (min-width: 800px) {
-    } */
   }
 `;

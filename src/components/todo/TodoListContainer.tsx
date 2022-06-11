@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { TodoListType } from 'constants/todo';
+import { TodoListType } from 'constants/enum/todo';
 import React, { Dispatch, SetStateAction } from 'react';
 import { ITodo, ITodoColumn } from 'types/todo.types';
 import TodoBoardContainer from './board/TodoBoardContainer';

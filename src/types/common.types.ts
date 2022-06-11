@@ -1,3 +1,5 @@
+import { RESPONSE_CODE } from 'apis/responseSuccess';
+
 export interface IPagination {
   totalPage: number;
   page: number;
@@ -14,3 +16,11 @@ export interface IGetParameter {
   size?: number;
   type: string;
 }
+
+export interface IAPIResponse<T> {
+  code: RESPONSE_CODE;
+  message: string;
+  data: T;
+}
+
+export type Nullable<T> = T | null;
