@@ -15,7 +15,7 @@ const Background = ({ onToggle }: Props) => {
     content6: false,
   });
   const handleClickTodo = (e: MouseEvent) => {
-    onToggle && onToggle('/todo');
+    onToggle && onToggle('/map/todo');
   };
   console.log(hover);
   return (

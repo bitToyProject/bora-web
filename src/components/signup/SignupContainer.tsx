@@ -1,7 +1,17 @@
 import styled from '@emotion/styled';
+import { ACCESS_TOKEN } from 'constants/token';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { storage } from 'utils/storage';
 import { SignupPage } from './index';
 
 const SignupContainer = () => {
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (storage.get(ACCESS_TOKEN)) {
+  //     navigate('/map');
+  //   }
+  // }, []);
   return (
     <SignupWrapper>
       <h2>회원 가입</h2>

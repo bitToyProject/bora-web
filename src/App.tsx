@@ -1,7 +1,8 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import PrivateRoute from 'components/common/PrivateRoute';
 import HomeContainer from 'components/home/HomeContainer';
-import LoginContainer from 'components/login/LoginContainer';
+import { StartContainer } from 'components/home/StartContainer';
+import LoginPage from 'components/login/LoginPage';
 import MypageContainer from 'components/mypage/MypageContainer';
 import { SignupContainer } from 'components/signup/index';
 import TodoContainer from 'components/todo/TodoContainer';
@@ -15,12 +16,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Global styles={GlobalStyles} />
       <Routes>
-        <Route path="/" element={<HomeContainer />}>
-          <Route path="/todo" element={<TodoContainer />} />
+        <Route path="/" element={<StartContainer />} />
+        <Route path="/map" element={<HomeContainer />}>
+          <Route path="/map/todo" element={<TodoContainer />} />
         </Route>
+
         <Route path="/mypage" element={<PrivateRoute element={<MypageContainer />} />} />
         <Route path="/signup" element={<SignupContainer />} />
-        <Route path="/login" element={<LoginContainer />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </ThemeProvider>
   );

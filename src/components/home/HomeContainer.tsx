@@ -20,15 +20,16 @@ const HomeContainer = () => {
 
   const onCloseModal = useCallback(() => {
     setToggle(false);
-    navigate('/');
+    navigate('/map');
   }, [navigate]);
 
   useEffect(() => {
-    if (location.pathname === '/') {
+    console.log(location.pathname.length);
+    if (location.pathname === '/map') {
       setToggle(false);
     }
 
-    if (location.pathname.length > 1) {
+    if (location.pathname.length > 4) {
       setToggle(true);
     }
   }, [location.pathname]);
