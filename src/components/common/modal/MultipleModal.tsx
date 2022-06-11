@@ -6,33 +6,36 @@ interface Props {
   text: string;
   onClose?: () => void;
   cleanup?: () => void;
+  width?: string;
 }
 
-const MultipleModal = ({ children, text, onClose, cleanup }: PropsWithChildren<Props>) => {
+const MultipleModal = ({ children, text, width, onClose, cleanup }: PropsWithChildren<Props>) => {
   useEffect(() => {
     return cleanup;
   }, []);
 
   return (
-    <MutipleModalBlock>
+    <MultipleModalBlock width={width}>
       <CloseButton onClose={onClose} />
       <Header>
         <Title>{text}</Title>
       </Header>
-      <Body>{children}</Body>
-    </MutipleModalBlock>
+      {children}
+    </MultipleModalBlock>
   );
 };
 
 export default MultipleModal;
 
-export const MutipleModalBlock = styled.div`
+export const MultipleModalBlock = styled.div<{ width?: string }>`
   position: absolute;
   top: 50%;
   left: 50%;
   border-radius: 8px;
-  width: 60%;
+  padding: 1.25rem;
   background-color: #292a2d;
+  min-width: ${({ width }) => (width ? width : 'fit-content')};
+  max-width: 60%;
   transform: translate(-50%, -50%);
   z-index: 9;
 `;
@@ -42,15 +45,10 @@ export const Header = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  padding: 20px 0;
 `;
 
 export const Title = styled.span`
   font-weight: 700;
-  font-size: 34px;
-  color: #fff;
-`;
-
-export const Body = styled.div`
-  padding: 20px;
+  font-size: 2rem;
+  color: ${({ theme }) => theme.colors.white};
 `;

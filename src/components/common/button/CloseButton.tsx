@@ -24,7 +24,6 @@ const Button = styled.div<{ backgroudColor?: string }>`
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  padding: 8px 15px;
   background-color: transparent;
 
   & > span {

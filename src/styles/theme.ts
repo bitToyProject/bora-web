@@ -9,5 +9,6 @@ export const theme: Theme = {
     warning: '#fc587e',
     yellow: '#ffd32d',
     green: '#7bc95f',
+    purple: '#5c20e5',
   },
 };

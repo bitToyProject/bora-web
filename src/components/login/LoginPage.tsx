@@ -60,7 +60,7 @@ const LoginPage = () => {
   }, []);
 
   return (
-    <>
+    <LoginWrapper>
       <LabelLayout label="username">
         <Input
           type={'email'}
@@ -81,9 +81,13 @@ const LoginPage = () => {
         <ColorButton onClick={() => onSubmitForm()}>sign in</ColorButton>
         <ColorButton onClick={() => navigate('/signup')}>sign Up</ColorButton>
       </BtnBox>
-    </>
+    </LoginWrapper>
   );
 };
+
+const LoginWrapper = styled.div`
+  padding-top: 1.25rem;
+`;
 
 const BtnBox = styled.div`
   display: flex;

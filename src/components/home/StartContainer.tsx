@@ -35,6 +35,7 @@ export const StartContainer = () => {
       </MenuWrapper>
       {isOpen && (
         <MultipleModal
+          width="25rem"
           text={modal.login ? 'Sign in to Bora' : 'Settings'}
           onClose={() => onModalClose()}>
           {modal.login && <LoginPage />}
@@ -44,8 +45,7 @@ export const StartContainer = () => {
   );
 };
 const Title = styled.p`
-  /* color: ${({ theme }) => theme.colors.white}; */
-  color: #5c20e5;
+  color: ${({ theme }) => theme.colors.purple};
   font-size: 2rem;
   font-weight: bold;
 `;
