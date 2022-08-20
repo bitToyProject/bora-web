@@ -1,15 +1,16 @@
 import styled from '@emotion/styled';
 import { authAPI } from 'apis/auth';
 import axios from 'axios';
-import { TextButton } from 'components/common/button/TextButton';
-import { DraftComponent } from 'draft-js';
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import Button from 'components/common/Button';
+import Input from 'components/common/Input';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import { IMaskInput } from 'react-imask';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
-import Typist from 'react-typist';
 import { ISignupRequest } from 'types/auth.types';
 import { validation } from 'utils/validation';
-
+import React from 'react';
+import GamicType from 'components/common/text/GamicType';
 interface Props {}
 
 // unknown type 가드
@@ -67,85 +68,88 @@ const SignupPage = ({ ...props }: Props) => {
   };
 
   return (
-    <SignupBox>
+    // <SignupBox>
+    //   <NextBtnBox>
+    //     <TextButton>123</TextButton>
+    //   </NextBtnBox>
+    // </SignupBox>
+    <>
+      <AnimationTyping>
+        <div className="input-wrapper">
+          <input aria-label="Ask us anything" />
+          <span className="placeholder"></span>
+        </div>
+      </AnimationTyping>
+
+      {/* <div className="type"></div>
+      <label>이메일</label>
+      <Input
+        type="email"
+        name="username"
+        value={signupVal.username}
+        onChange={(e) => handleInputChange(e)}
+      />
+
+      <label>비밀번호</label>
+      <Input
+        type="password"
+        name="password"
+        value={signupVal.password}
+        onChange={(e) => handleInputChange(e)}
+      />
+
+      <label>비밀번호 확인</label>
+      <Input
+        type="password"
+        name="checkPassword"
+        value={signupVal.checkPassword}
+        onChange={(e) => handleInputChange(e)}
+      />
+
+      <label>성</label>
+      <Input
+        type="text"
+        name="firstName"
+        value={signupVal.firstName}
+        onChange={(e) => handleInputChange(e)}
+      />
+
+      <label>이름</label>
+      <Input
+        type="text"
+        name="lastName"
+        value={signupVal.lastName}
+        onChange={(e) => handleInputChange(e)}
+      />
+
+      <label>전화번호</label>
+      <IMaskInput
+        type="tel"
+        mask={'000-0000-0000'}
+        value={signupVal.phoneNum}
+        name="phoneNum"
+        unmask={true}
+        onAccept={(value, mask) => {
+          // console.log(isString(value));
+          setSignupVal({ ...signupVal, phoneNum: value as string });
+
+          // if (isString(value)) {
+          //   setSignupVal({ ...signupVal, phoneNum: value });
+          // }
+        }}
+      />
+      <label>닉네임</label>
+      <Input
+        type="text"
+        name="nickName"
+        value={signupVal.nickName}
+        onChange={(e) => handleInputChange(e)}
+      />
       <NextBtnBox>
-        {/* <Typist>
-          <p> First Sentence </p>
-          <Typist.Delay ms={20} />
-          This won't be animated until 20ms after the first sentenced is rendered
-        </Typist> */}
-        <TextButton>123</TextButton>
-      </NextBtnBox>
-    </SignupBox>
-    // <>
-    //   <label>이메일</label>
-    //   <Input
-    //     type="email"
-    //     name="username"
-    //     value={signupVal.username}
-    //     onChange={(e) => handleInputChange(e)}
-    //   />
-
-    //   <label>비밀번호</label>
-    //   <Input
-    //     type="password"
-    //     name="password"
-    //     value={signupVal.password}
-    //     onChange={(e) => handleInputChange(e)}
-    //   />
-
-    //   <label>비밀번호 확인</label>
-    //   <Input
-    //     type="password"
-    //     name="checkPassword"
-    //     value={signupVal.checkPassword}
-    //     onChange={(e) => handleInputChange(e)}
-    //   />
-
-    //   <label>성</label>
-    //   <Input
-    //     type="text"
-    //     name="firstName"
-    //     value={signupVal.firstName}
-    //     onChange={(e) => handleInputChange(e)}
-    //   />
-
-    //   <label>이름</label>
-    //   <Input
-    //     type="text"
-    //     name="lastName"
-    //     value={signupVal.lastName}
-    //     onChange={(e) => handleInputChange(e)}
-    //   />
-
-    //   <label>전화번호</label>
-    //   <IMaskInput
-    //     type="tel"
-    //     mask={'000-0000-0000'}
-    //     value={signupVal.phoneNum}
-    //     name="phoneNum"
-    //     unmask={true}
-    //     onAccept={(value, mask) => {
-    //       // console.log(isString(value));
-    //       setSignupVal({ ...signupVal, phoneNum: value as string });
-
-    //       // if (isString(value)) {
-    //       //   setSignupVal({ ...signupVal, phoneNum: value });
-    //       // }
-    //     }}
-    //   />
-    //   <label>닉네임</label>
-    //   <Input
-    //     type="text"
-    //     name="nickName"
-    //     value={signupVal.nickName}
-    //     onChange={(e) => handleInputChange(e)}
-    //   />
-    //   <SingupBtnBox>
-    //     <Button text={'Move to Login'} onClick={() => navigate('/login')}></Button>
-    //     <Button text={'Play it with BORA'} onClick={(e) => reqSignup(e)}></Button>
-    //   </SingupBtnBox>
-    // </>
+        <Button text={'Move to Login'} onClick={() => navigate('/login')}></Button>
+        <Button text={'Play it with BORA'} onClick={(e) => reqSignup(e)}></Button>
+      </NextBtnBox> */}
+    </>
   );
 };
 
@@ -169,3 +173,46 @@ const SignupBox = styled.div`
 `;
 
 const NextBtnBox = styled.div``;
+
+const AnimationTyping = styled.div`
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  width: 100%;
+  .input-wrapper {
+    display: block;
+    font-family: monospace;
+    font-size: 125%;
+    width: 50%;
+    > input,
+    > .placeholder {
+      display: block;
+      appearance: none;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+    }
+    > .placeholder {
+      pointer-events: none;
+      @include typed(
+        'How many roads must a man walk down before you call him a man?',
+        'How many seas must a white dove sail before she sleeps in the sand?',
+        "The answer, my friend, is blowin' in the wind",
+        1.5,
+        (
+          caret-width: 2px,
+          caret-space: 2px,
+        )
+      );
+    }
+    > input {
+      &:focus,
+      &:active {
+        + .placeholder {
+          display: none;
+        }
+      }
+    }
+  }
+`;

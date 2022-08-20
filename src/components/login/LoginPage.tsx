@@ -12,7 +12,12 @@ import axios, { AxiosError } from 'axios';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/token';
 import { LabelLayout } from 'layouts/wrapper/PageLayout';
 import { ColorButton } from 'components/common/button/ColorButton';
-
+import { Link } from 'react-router-dom';
+import { END_POINT } from 'constants/url';
+import { Naver } from './oauths/Naver';
+axios.defaults.withCredentials = true;
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -77,6 +82,31 @@ const LoginPage = () => {
           placeholder="비밀번호를 입력해주세요."
         />
       </LabelLayout>
+      <OAuthWrapper>
+        <Link to={`${END_POINT}/oauth2/authorization/facebook?redirect_uri=/oauth/redirect`}>
+          <img src="/img/meta.png" />
+        </Link>
+        <img
+          src="/img/kakao.png"
+          onClick={() =>
+            axios
+              .get(
+                `${END_POINT}/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect`,
+                {
+                  headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'X-Naver-Client-Id': 'hIroIYSwEyKzWByX_nQB',
+                    'X-Naver-Client-Secret': 'QjAgsg7mNI',
+                  },
+                },
+              )
+              .then((vlaue) => console.log(vlaue.status))
+              .catch((e) => console.log(e.status))
+          }
+        />
+
+        <Naver />
+      </OAuthWrapper>
       <BtnBox>
         <ColorButton onClick={() => onSubmitForm()}>sign in</ColorButton>
         <ColorButton onClick={() => navigate('/signup')}>sign Up</ColorButton>
@@ -89,9 +119,24 @@ const LoginWrapper = styled.div`
   padding-top: 1.25rem;
 `;
 
+const OAuthWrapper = styled.div`
+  padding-top: 1.25rem;
+
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: contain;
+    cursor: pointer;
+  }
+`;
+
 const BtnBox = styled.div`
   display: flex;
-  margin-top: 2.5rem;
+  padding-top: 1.25rem;
   justify-content: space-between;
   gap: 0.5rem;
 `;
